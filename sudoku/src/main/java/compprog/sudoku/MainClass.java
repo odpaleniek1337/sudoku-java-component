@@ -2,6 +2,7 @@ package compprog.sudoku;
 
 public class MainClass {
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        SudokuBoard board = new SudokuBoard(); 
+        board.fillBoard();
     }
 }
