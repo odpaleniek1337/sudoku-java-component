@@ -7,9 +7,8 @@ import java.util.Random;
 
 public class SudokuBoard {
     private int[] board = new int[81];
-    //
     
-    private int getCellValue(int cell) {
+    public int getCellValue(int cell) {
         return board[cell];
     }
     
@@ -51,7 +50,7 @@ public class SudokuBoard {
         return array;
     }
     
-    private boolean isInRow(int number, int row) {
+    public boolean isInRow(int number, int row) {
         for (int i = 0; i < 9; i++) {
             if (number == getCellValue(row * 9 + i)) {
                 return true;
@@ -60,7 +59,7 @@ public class SudokuBoard {
         return false;
     }
     
-    private boolean isInColumn(int number, int column) {
+    public boolean isInColumn(int number, int column) {
         for (int i = 0; i < 9; i++) {
             if (number == getCellValue(column + 9 * i)) {
                 return true;
@@ -69,7 +68,7 @@ public class SudokuBoard {
         return false;
     }
     
-    private boolean isInSquare(int number, int row, int column) {
+    public boolean isInSquare(int number, int row, int column) {
         int rowFactor = row / 3 * 3;//we get first row from that square
         int colFactor = column / 3 * 3;//we get first column from that square
         for (int i = rowFactor; i < rowFactor + 3; i++) {
@@ -125,7 +124,7 @@ public class SudokuBoard {
         Collections.shuffle(listRow);
         
         //Alghorithm starts here:
-        for (row = 0;row < 9;row++) {
+        for (row = 1;row < 9;row++) {
             for (col = 0;col < 9;col++) {
                 if (getCellValue(row * 9 + col) == 0) {
                     isEmpty = true;
