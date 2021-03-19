@@ -6,14 +6,12 @@ import java.util.List;
 import java.util.Random;
 
 public class SudokuBoard {
-    private int[] board = new int[81];
+    private int[] board; 
+    private SudokuSolver sudokuSolver;
     
-    public int getCellValue(int cell) {
-        return board[cell];
-    }
-    
-    private void setCellValue(int cell, int value) {
-        board[cell] = value;
+    public SudokuBoard(SudokuSolver solver) {
+       board = new int[81];
+       sudokuSolver = solver;
     }
     
     private void cellsToZero() {
@@ -115,45 +113,6 @@ public class SudokuBoard {
         createPuzzle(randomizeHints(64)); 
     }
     
-    public boolean fillBoard() {
-        int row = 0;
-        int col = 0;
-        boolean isEmpty = false;
-        Integer[] intArray = {1,2,3,4,5,6,7,8,9};
-        List<Integer> listRow = Arrays.asList(intArray);
-        Collections.shuffle(listRow);
-        
-        //Alghorithm starts here:
-        for (row = 1;row < 9;row++) {
-            for (col = 0;col < 9;col++) {
-                if (getCellValue(row * 9 + col) == 0) {
-                    isEmpty = true;
-                    break;
-                }
-            }
-            if (isEmpty == true) {
-                break;
-            }
-        }
-        
-        if (isEmpty == false) {
-            return true;
-        }
-        
-        for (int o = 0;o < 9;o++) {
-            int number = intArray[o];
-            if (!isInRow(number,row) && !isInColumn(number,col) && !isInSquare(number,row,col)) {
-                setCellValue(row * 9 + col, number);
-            
-            if (fillBoard()) {
-               return true;
-            }
-            setCellValue(row * 9 + col, 0);
-            }
-        }
-        return false;
-    }
-    
     public void display() {
         for (int i = 0; i < 9; i++) {
             int[] row = new int[9];
@@ -162,5 +121,20 @@ public class SudokuBoard {
             }
             System.out.println(Arrays.toString(row));
         }
+    }
+    
+    //Task 3 functions
+    public int getCellValue(int cell) {
+        return board[cell];
+    }
+    
+    public void setCellValue(int cell, int value) {
+        board[cell] = value;
+    }
+    
+    public void solveGame() {
+        makeBoard();
+        sudokuSolver.solve(this);
+        display();
     }
 }
