@@ -108,9 +108,11 @@ public class SudokuBoard {
     
     /**
       *Hides all cells except randomized ones.
+      * 
+      *@param hints - amount of hidden cells
     */
-    public void setBoardForGame() {
-        createPuzzle(randomizeHints(64)); 
+    public void setBoardForGame(int hints) {
+        createPuzzle(randomizeHints(hints)); 
     }
     
     public void display() {
@@ -135,6 +137,6 @@ public class SudokuBoard {
     public void solveGame() {
         makeBoard();
         sudokuSolver.solve(this);
-        display();
+        //display();
     }
 }

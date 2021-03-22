@@ -14,10 +14,9 @@ public class SudokuBoardTest {
 
     @Test
     public void testCorrectSudokuDigits() {
-        SudokuBoard board = new SudokuBoard();
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
         int notCorrect=0;
-        board.makeBoard();
-        board.fillBoard();
+        board.solveGame();
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
                 int number = board.getCellValue(row * 9 + col);
@@ -30,12 +29,12 @@ public class SudokuBoardTest {
     }
 
     @Test
-    public void testIsTwoSubsequentCallsAreDifferent() {
-        SudokuBoard board = new SudokuBoard();
-        SudokuBoard board2 = new SudokuBoard();
+    public void testIfTwoSubsequentCallsAreDifferent() {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
         int arrayEquals = 0;
-        board.makeBoard();
-        board.fillBoard();
+        board.solveGame();
+        
         int[] sudoku1 = new int[81];
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
@@ -43,8 +42,7 @@ public class SudokuBoardTest {
             }
         } 
         
-        board2.makeBoard();
-        board2.fillBoard();
+        board2.solveGame();
         int[] sudoku2 = new int[81];
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
@@ -60,5 +58,22 @@ public class SudokuBoardTest {
             }
         }
         assertNotEquals(arrayEquals,81);
+    }
+    
+    @Test
+    public void testIfRandomizeHintsGiveExactNumberOfHints() {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        int counterHidden = 0;
+        board.solveGame();
+        board.setBoardForGame(64);
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                assertNotNull(board.getCellValue(row * 9 + col));
+                if(board.getCellValue(row * 9 + col) == 0) {
+                    counterHidden++;
+                }
+            }
+        }
+        assertEquals(counterHidden, 64);
     }
 }

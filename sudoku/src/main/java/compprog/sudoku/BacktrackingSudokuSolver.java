@@ -33,7 +33,9 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         
         for (int o = 0;o < 9;o++) {
             int number = intArray[o];
-            if (!board.isInRow(number,row) && !board.isInColumn(number,col) && !board.isInSquare(number,row,col)) {
+            if (!board.isInRow(number,row) 
+                    && !board.isInColumn(number,col) 
+                    && !board.isInSquare(number,row,col)) {
                 board.setCellValue(row * 9 + col, number);
             
             if (solve(board)) {
