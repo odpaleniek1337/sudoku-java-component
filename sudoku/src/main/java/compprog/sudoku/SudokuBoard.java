@@ -20,6 +20,12 @@ public class SudokuBoard {
         }
     }
     
+    private void createFields() {
+        for (int x = 0; x < 81; x++) {
+            board[x] = new SudokuField();
+        }
+    }
+    
     /**
       *Generates indexes of start hint cells.
       * 
@@ -96,7 +102,8 @@ public class SudokuBoard {
       *Creates first row of our board.
     */
     public void makeBoard() {
-        cellsToZero();//check if all of them are zeros
+        createFields();
+        cellsToZero();
         Integer[] intArray = {1,2,3,4,5,6,7,8,9};
         List<Integer> firstRow = Arrays.asList(intArray);
         Collections.shuffle(firstRow);
@@ -135,7 +142,7 @@ public class SudokuBoard {
     
     public SudokuRow getRow(int rowNumber) {
         SudokuField[] row = new SudokuField[9];
-        for (int i = 0 ; i < 9 ; i++ ) {
+        for (int i = 0; i < 9; i++) {
             row[i] = board[rowNumber * 9 + i];
         }
         return new SudokuRow(row);
@@ -143,7 +150,7 @@ public class SudokuBoard {
     
     public SudokuColumn getColumn(int columnNumber) {
         SudokuField[] column = new SudokuField[9];
-        for (int i = 0 ; i < 9 ; i++ ) {
+        for (int i = 0; i < 9; i++) {
             column[i] = board[columnNumber + 9 * i];
         }
         return new SudokuColumn(column);
@@ -155,15 +162,16 @@ public class SudokuBoard {
         int colFactor = boxNumber / 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                box[3 * i + j] = board[9 * (colFactor + i) + (j + rowFactor * 3)];
+                box[3 * i + j] = board[9 * i + (j + rowFactor * 3) + 27 * colFactor];
             }
         }
         return new SudokuBox(box);
     }
     
     private boolean checkBoard() {
-        for (int i = 0 ; i < 9; i++) {
-            if ( getColumn(i).verify() == false || getRow(i).verify() == false || getBox(i).verify()) {
+        for (int i = 0; i < 9; i++) {
+            if (!(getColumn(i).verify() && getRow(i).verify()
+                    && getBox(i).verify())) {
                 return false;
             }
         }
@@ -173,6 +181,6 @@ public class SudokuBoard {
     public void solveGame() {
         makeBoard();
         sudokuSolver.solve(this);
-        //display();
+        display();
     }
 }

@@ -4,6 +4,10 @@ package compprog.sudoku;
 public class SudokuField {
     private int value;
     
+    public SudokuField() {
+        this.value = 0;
+    }
+    
     public int getFieldValue() {
         return this.value;
     }
