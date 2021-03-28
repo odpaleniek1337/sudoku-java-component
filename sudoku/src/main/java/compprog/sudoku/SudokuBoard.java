@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Random;
 
 public class SudokuBoard {
-    private int[] board; 
+    private SudokuField[] board; 
     private SudokuSolver sudokuSolver;
     
     public SudokuBoard(SudokuSolver solver) {
-       board = new int[81];
-       sudokuSolver = solver;
+       this.board = new SudokuField[81];
+       this.sudokuSolver = solver;
     }
     
     private void cellsToZero() {
@@ -125,13 +125,49 @@ public class SudokuBoard {
         }
     }
     
-    //Task 3 functions
     public int getCellValue(int cell) {
-        return board[cell];
+        return board[cell].getFieldValue();
     }
     
     public void setCellValue(int cell, int value) {
-        board[cell] = value;
+        board[cell].setFieldValue(value);
+    }
+    
+    public SudokuRow getRow(int rowNumber) {
+        SudokuField[] row = new SudokuField[9];
+        for (int i = 0 ; i < 9 ; i++ ) {
+            row[i] = board[rowNumber * 9 + i];
+        }
+        return new SudokuRow(row);
+    }
+    
+    public SudokuColumn getColumn(int columnNumber) {
+        SudokuField[] column = new SudokuField[9];
+        for (int i = 0 ; i < 9 ; i++ ) {
+            column[i] = board[columnNumber + 9 * i];
+        }
+        return new SudokuColumn(column);
+    }
+    
+    public SudokuBox getBox(int boxNumber) {
+        SudokuField[] box = new SudokuField[9];
+        int rowFactor = boxNumber % 3;
+        int colFactor = boxNumber / 3;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                box[3 * i + j] = board[9 * (colFactor + i) + (j + rowFactor * 3)];
+            }
+        }
+        return new SudokuBox(box);
+    }
+    
+    private boolean checkBoard() {
+        for (int i = 0 ; i < 9; i++) {
+            if ( getColumn(i).verify() == false || getRow(i).verify() == false || getBox(i).verify()) {
+                return false;
+            }
+        }
+        return true;
     }
     
     public void solveGame() {
