@@ -4,10 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 
-/**
- *
- * @author 230442 && 230461
- */
 public class SudokuBoardTest {
 
     public SudokuBoardTest() {
@@ -76,5 +72,19 @@ public class SudokuBoardTest {
             }
         }
         assertEquals(counterHidden, 64);
+    }
+    
+    @Test
+    public void testCorrectnessOfVerifyMethodSudokuBoard() {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        boolean notCorrect = false;
+        board.solveGame();
+        for (int i = 0; i < 9; i++) {
+            if (!(board.getColumn(i).verify() && board.getRow(i).verify()
+                    && board.getBox(i).verify())) {
+                notCorrect=true;
+            }
+        }
+        assertEquals(notCorrect, false);
     }
 }
