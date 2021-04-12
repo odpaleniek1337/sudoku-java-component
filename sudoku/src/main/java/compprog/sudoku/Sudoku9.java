@@ -5,7 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public abstract class Sudoku9 {
+/**
+ *Abstract class for similar objects containing SudokuFields.
+ * 
+ * @author 230461
+ */
+public abstract class Sudoku9 implements Observer {
     protected List<SudokuField> fields;
     
     public Sudoku9() {
@@ -22,5 +27,14 @@ public abstract class Sudoku9 {
             foundNumbers.add(potentialValue);
         }
         return true;
+    }
+    
+    @Override
+    public void update(boolean verify) {
+        if (verify) {
+            System.out.println("Verification succesful :)");
+        } else {
+            System.out.println("Verification unsuccesful :(");
+        }
     }
 }
