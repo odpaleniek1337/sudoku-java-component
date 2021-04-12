@@ -8,7 +8,7 @@ import java.util.Set;
  * 
  * @author 230461
  */
-public abstract class Sudoku9 {
+public abstract class Sudoku9 implements Observer {
     protected SudokuField[] fields = new SudokuField[9];
     
     public boolean verify() {
@@ -21,5 +21,14 @@ public abstract class Sudoku9 {
             foundNumbers.add(potentialValue);
         }
         return true;
+    }
+    
+    @Override
+    public void update(boolean verify) {
+        if (verify) {
+            System.out.println("Verification succesful :)");
+        } else {
+            System.out.println("Verification unsuccesful :(");
+        }
     }
 }

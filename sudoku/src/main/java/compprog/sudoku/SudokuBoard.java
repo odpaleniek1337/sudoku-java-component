@@ -137,6 +137,12 @@ public class SudokuBoard {
     }
     
     public void setCellValue(int cell, int value) {
+        int row = cell / 9;
+        int column = cell % 9;
+        int rowFactor = row / 3;
+        int colFactor = column / 3;
+        board[cell].addObservers(getRow(row),getColumn(column),getBox(rowFactor * 3 + colFactor));
+        board[cell].notifyObservers();
         board[cell].setFieldValue(value);
     }
     
