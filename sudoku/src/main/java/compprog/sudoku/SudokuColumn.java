@@ -1,8 +1,10 @@
 package compprog.sudoku;
 
+import java.util.List;
+
 public class SudokuColumn extends Sudoku9 {
     
-    public SudokuColumn(SudokuField[] fields) {
+    public SudokuColumn(List<SudokuField> fields) {
         this.fields = fields;
     }
 }

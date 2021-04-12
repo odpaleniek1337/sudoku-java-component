@@ -77,14 +77,15 @@ public class SudokuBoardTest {
     @Test
     public void testCorrectnessOfVerifyMethodSudokuBoard() {
         SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
-        boolean notCorrect = false;
+//        boolean notCorrect = false;
         board.solveGame();
-        for (int i = 0; i < 9; i++) {
-            if (!(board.getColumn(i).verify() && board.getRow(i).verify()
-                    && board.getBox(i).verify())) {
-                notCorrect=true;
-            }
-        }
-        assertEquals(notCorrect, false);
+//        for (int i = 0; i < 9; i++) {
+//            if (!(board.getColumn(i).verify() && board.getRow(i).verify()
+//                    && board.getBox(i).verify())) {
+//                notCorrect=true;
+//            }
+//        }
+//        if(!board.checkBoard()) notCorrect=true;
+        assertEquals(board.checkBoard(), true);
     }
 }

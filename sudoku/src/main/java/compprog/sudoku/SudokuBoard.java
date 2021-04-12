@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Random;
 
 public class SudokuBoard {
-    private SudokuField[] board; 
     private SudokuSolver sudokuSolver;
+    private List<SudokuField> board;
     
     public SudokuBoard(SudokuSolver solver) {
-       this.board = new SudokuField[81];
+       board = Arrays.asList(new SudokuField[81]);
        this.sudokuSolver = solver;
     }
     
@@ -22,7 +22,7 @@ public class SudokuBoard {
     
     private void createFields() {
         for (int x = 0; x < 81; x++) {
-            board[x] = new SudokuField();
+            board.set(x, new SudokuField()); 
         }
     }
     
@@ -31,10 +31,11 @@ public class SudokuBoard {
       * 
       *@return  integer array of indexes 
     */
-    private Integer[] randomizeHints(int hints) {
-        Integer[] array = new Integer[hints];
+    private List<Integer> randomizeHints(int hints) {
+        List<Integer> array;
+        array = Arrays.asList(new Integer[hints]);
         for (int x = 0; x < hints; x++) {
-            array[x] = -1;
+            array.set(x, -1);
         }
         Random dice = new Random();
         for (int j = 0; j < hints; j++) {
@@ -47,10 +48,10 @@ public class SudokuBoard {
                 }
             }
             if (isUnique == true) {
-                array[j] = number;
+                array.set(j, number);
             }
         }
-        Arrays.sort(array);
+        Collections.sort(array);
         return array;
     }
     
@@ -91,10 +92,10 @@ public class SudokuBoard {
       * 
       *@param cells - array of integers
     */
-    private void createPuzzle(Integer[] cells) {
-        for (int i = 0; i < cells.length; i++) {
-            int index = cells[i];
-            setCellValue(index, 0);
+    private void createPuzzle(List<Integer> cells) {
+        //for (Integer i : cells)
+        for (Integer i = 0; i < cells.size(); i++) {
+            setCellValue(cells.get(i), 0);
         }
     }
     
@@ -133,42 +134,47 @@ public class SudokuBoard {
     }
     
     public int getCellValue(int cell) {
-        return board[cell].getFieldValue();
+        return board.get(cell).getFieldValue();
     }
     
     public void setCellValue(int cell, int value) {
-        board[cell].setFieldValue(value);
+        board.get(cell).setFieldValue(value);
     }
     
     public SudokuRow getRow(int rowNumber) {
-        SudokuField[] row = new SudokuField[9];
+        List<SudokuField> row;
+        row = Arrays.asList(new SudokuField[9]);
+        
         for (int i = 0; i < 9; i++) {
-            row[i] = board[rowNumber * 9 + i];
+            row.set(i, board.get(rowNumber * 9 + i));
+            
         }
         return new SudokuRow(row);
     }
     
     public SudokuColumn getColumn(int columnNumber) {
-        SudokuField[] column = new SudokuField[9];
+        List<SudokuField> column;
+        column = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            column[i] = board[columnNumber + 9 * i];
+            column.set(i, board.get(columnNumber + 9 * i));
         }
         return new SudokuColumn(column);
     }
     
     public SudokuBox getBox(int boxNumber) {
-        SudokuField[] box = new SudokuField[9];
+        List<SudokuField> box;
+        box = Arrays.asList(new SudokuField[9]);
         int rowFactor = boxNumber % 3;
         int colFactor = boxNumber / 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                box[3 * i + j] = board[9 * i + (j + rowFactor * 3) + 27 * colFactor];
+                box.set(3 * i + j, board.get(9 * i + (j + rowFactor * 3) + 27 * colFactor));
             }
         }
         return new SudokuBox(box);
     }
     
-    private boolean checkBoard() {
+    protected boolean checkBoard() {
         for (int i = 0; i < 9; i++) {
             if (!(getColumn(i).verify() && getRow(i).verify()
                     && getBox(i).verify())) {
