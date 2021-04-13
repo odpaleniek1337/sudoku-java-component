@@ -86,6 +86,15 @@ public class SudokuBoardTest {
 //            }
 //        }
 //        if(!board.checkBoard()) notCorrect=true;
-        assertEquals(board.checkBoard(), true);
+        assertTrue(board.checkBoard());
+    }
+    
+        @Test
+    public void testFalseOfVerifyMethodSudokuBoard() {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        board.solveGame();
+        board.setCellValue(5, 8);
+        board.setCellValue(6, 8);
+        assertEquals(board.checkBoard(),false);
     }
 }
