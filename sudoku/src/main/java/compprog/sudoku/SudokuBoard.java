@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class SudokuBoard {
     private SudokuSolver sudokuSolver;
@@ -196,5 +199,33 @@ public class SudokuBoard {
         makeBoard();
         sudokuSolver.solve(this);
         display();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append(getCellValue(0))
+                .append(getCellValue(1))
+                .append(getCellValue(2))
+                .append(getCellValue(3))
+                .append(getCellValue(4))
+                .append(getCellValue(5))
+                .append(getCellValue(6))
+                .append(getCellValue(7))
+                .append(getCellValue(8))
+                .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 }

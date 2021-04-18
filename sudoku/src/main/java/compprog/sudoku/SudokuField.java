@@ -2,6 +2,9 @@ package compprog.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 
 public class SudokuField implements Observable {
@@ -30,5 +33,25 @@ public class SudokuField implements Observable {
         for (Observer observer : observers) {
             observer.update(observer.verify());
         }
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("SudokuField", value)
+                .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 }
