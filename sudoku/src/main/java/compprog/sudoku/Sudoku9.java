@@ -7,8 +7,6 @@ import java.util.Set;
 
 /**
  *Abstract class for similar objects containing SudokuFields.
- * 
- * @author 230461
  */
 public abstract class Sudoku9 implements Observer {
     protected List<SudokuField> fields;
@@ -37,4 +35,6 @@ public abstract class Sudoku9 implements Observer {
             System.out.println("Verification unsuccesful :(");
         }
     }
+
+
 }
