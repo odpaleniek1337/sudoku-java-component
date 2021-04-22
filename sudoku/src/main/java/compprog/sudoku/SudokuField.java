@@ -38,7 +38,8 @@ public class SudokuField implements Observable {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("SudokuField", value)
+                .append("value", value)
+                .append("observers", observers)
                 .toString();
     }
 
@@ -49,6 +50,9 @@ public class SudokuField implements Observable {
 
     @Override
     public boolean equals(Object obj) {
+		if ( obj == null) {
+            return false;
+        }
         if (obj.getClass() != getClass()) {
             return false;
         }

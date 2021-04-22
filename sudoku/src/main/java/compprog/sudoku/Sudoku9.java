@@ -42,15 +42,7 @@ public abstract class Sudoku9 implements Observer {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append(fields.get(0).getFieldValue())
-                .append(fields.get(1).getFieldValue())
-                .append(fields.get(2).getFieldValue())
-                .append(fields.get(3).getFieldValue())
-                .append(fields.get(4).getFieldValue())
-                .append(fields.get(5).getFieldValue())
-                .append(fields.get(6).getFieldValue())
-                .append(fields.get(7).getFieldValue())
-                .append(fields.get(8).getFieldValue())
+                .append("fields", fields)
                 .toString();
     }
 
@@ -61,10 +53,12 @@ public abstract class Sudoku9 implements Observer {
 
     @Override
     public boolean equals(Object obj) {
+		if ( obj == null) {
+            return false;
+        }
         if (obj.getClass() != getClass()) {
             return false;
         }
         return EqualsBuilder.reflectionEquals(this, obj);
     }
-
 }

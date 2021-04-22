@@ -2,7 +2,6 @@ package compprog.sudoku;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Disabled;
 
 public class SudokuBoardTest {
 
@@ -77,24 +76,61 @@ public class SudokuBoardTest {
     @Test
     public void testCorrectnessOfVerifyMethodSudokuBoard() {
         SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
-//        boolean notCorrect = false;
         board.solveGame();
-//        for (int i = 0; i < 9; i++) {
-//            if (!(board.getColumn(i).verify() && board.getRow(i).verify()
-//                    && board.getBox(i).verify())) {
-//                notCorrect=true;
-//            }
-//        }
-//        if(!board.checkBoard()) notCorrect=true;
         assertTrue(board.checkBoard());
     }
     
-        @Test
+    @Test
     public void testFalseOfVerifyMethodSudokuBoard() {
         SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
         board.solveGame();
-        board.setCellValue(5, 8);
-        board.setCellValue(6, 8);
-        assertEquals(board.checkBoard(),false);
+        for(int i = 0; i < 81; i++) {
+            board.setCellValue(i, 0);
+        }
+
+        assertFalse(board.checkBoard());
+    }
+
+    @Test
+    public void testTwoBoardNotEqual() {
+        SudokuBoard board1 = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
+        assertFalse(board1.equals(board2));
+    }
+
+    @Test
+    public void testBoardNotEqualDifferentObject() {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBox box = board.getBox(0);
+        assertFalse(board.equals(box));
+    }
+
+    @Test
+    public void testTwoHashCodesNotEqual() {
+        SudokuBoard board1 = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
+        assertNotEquals(board1.hashCode(), board2.hashCode());
+    }
+
+    @Test
+    public void testTwoHashCodesAreEqual() {
+        SudokuBoard board1 = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoard board2 = board1;
+        assertEquals(board1.hashCode(), board2.hashCode());
+    }
+
+	@Test
+    public void testNullObjectOnEqualsMethod() {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoard board1 = null;
+        assertFalse(board.equals(board1));
+    }
+
+    @Test
+    public void testToStringMethodSudokuBoard() {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        String toString = board.toString();
+        assertTrue(toString.contains("board"));
+        assertTrue(toString.contains("sudokuSolver"));
     }
 }

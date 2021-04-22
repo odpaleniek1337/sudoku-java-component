@@ -27,5 +27,4 @@ public class JavaFx extends Application {
         board.solveGame();
         launch(args);
     }
-
 }

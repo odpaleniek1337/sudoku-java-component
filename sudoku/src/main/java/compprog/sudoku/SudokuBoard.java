@@ -204,15 +204,8 @@ public class SudokuBoard {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append(getCellValue(0))
-                .append(getCellValue(1))
-                .append(getCellValue(2))
-                .append(getCellValue(3))
-                .append(getCellValue(4))
-                .append(getCellValue(5))
-                .append(getCellValue(6))
-                .append(getCellValue(7))
-                .append(getCellValue(8))
+                .append("sudokuSolver", sudokuSolver)
+                .append("board", board)
                 .toString();
     }
 
@@ -223,6 +216,9 @@ public class SudokuBoard {
 
     @Override
     public boolean equals(Object obj) {
+		if ( obj == null) {
+            return false;
+        }
         if (obj.getClass() != getClass()) {
             return false;
         }
