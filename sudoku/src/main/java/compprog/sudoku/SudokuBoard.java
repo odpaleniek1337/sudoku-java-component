@@ -1,5 +1,6 @@
 package compprog.sudoku;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +9,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class SudokuBoard {
+public class SudokuBoard implements Serializable {
     private SudokuSolver sudokuSolver;
     private List<SudokuField> board;
     

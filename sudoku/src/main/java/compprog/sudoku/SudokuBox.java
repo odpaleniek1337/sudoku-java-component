@@ -1,8 +1,9 @@
 package compprog.sudoku;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SudokuBox extends Sudoku9 {
+public class SudokuBox extends Sudoku9 implements Serializable {
     
     public SudokuBox(List<SudokuField> fields) {
         this.fields = fields;

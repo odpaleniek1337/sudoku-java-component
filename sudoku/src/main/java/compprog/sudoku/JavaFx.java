@@ -10,6 +10,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class JavaFx extends Application {
 
     @Override
@@ -21,10 +23,15 @@ public class JavaFx extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(sudokuSolver);
         board.solveGame();
         launch(args);
+        FileSudokuBoardDao<SudokuBoard> dao = new FileSudokuBoardDao<>("file.txt");
+        dao.write(board);
+        SudokuBoard board1 = dao.read();
+        String string = board1.toString();
+        System.out.println(string);
     }
 }
