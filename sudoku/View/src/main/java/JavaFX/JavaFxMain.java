@@ -1,4 +1,4 @@
-package compprog.sudoku;
+package JavaFX;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -12,7 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
-public class JavaFx extends Application {
+public class JavaFxMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -23,15 +23,7 @@ public class JavaFx extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
-        SudokuBoard board = new SudokuBoard(sudokuSolver);
-        board.solveGame();
+    public static void main(String[] args) {
         launch(args);
-        FileSudokuBoardDao<SudokuBoard> dao = new FileSudokuBoardDao<>("file.txt");
-        dao.write(board);
-        SudokuBoard board1 = dao.read();
-        String string = board1.toString();
-        System.out.println(string);
     }
 }
