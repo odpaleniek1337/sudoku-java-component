@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class SudokuBoard implements Serializable {
+public class SudokuBoard implements Serializable, Cloneable {
     private SudokuSolver sudokuSolver;
     private List<SudokuField> board;
     
@@ -20,7 +20,7 @@ public class SudokuBoard implements Serializable {
     
     private void cellsToZero() {
         for (int x = 0; x < 81; x++) {
-            setCellValue(x,0);
+            setCellValue(x, 0);
         }
     }
     
@@ -78,8 +78,8 @@ public class SudokuBoard implements Serializable {
     }
     
     public boolean isInSquare(int number, int row, int column) {
-        int rowFactor = row / 3 * 3;//we get first row from that square
-        int colFactor = column / 3 * 3;//we get first column from that square
+        int rowFactor = row / 3 * 3; //we get first row from that square
+        int colFactor = column / 3 * 3; //we get first column from that square
         for (int i = rowFactor; i < rowFactor + 3; i++) {
             for (int j = colFactor; j < colFactor + 3; j++) {
                 if (number == getCellValue(i * 9 + j)) {
@@ -109,7 +109,7 @@ public class SudokuBoard implements Serializable {
     public void makeBoard() {
         createFields();
         cellsToZero();
-        Integer[] intArray = {1,2,3,4,5,6,7,8,9};
+        Integer[] intArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         List<Integer> firstRow = Arrays.asList(intArray);
         Collections.shuffle(firstRow);
         
@@ -148,7 +148,7 @@ public class SudokuBoard implements Serializable {
         int rowFactor = row / 3;
         int colFactor = column / 3;
         board.get(cell).addObservers(getRow(row),
-                getColumn(column),getBox(rowFactor * 3 + colFactor));
+                getColumn(column), getBox(rowFactor * 3 + colFactor));
         board.get(cell).notifyObservers();
         board.get(cell).setFieldValue(value);
     }
@@ -217,12 +217,17 @@ public class SudokuBoard implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-		if ( obj == null) {
+        if (obj == null) {
             return false;
         }
         if (obj.getClass() != getClass()) {
             return false;
         }
         return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

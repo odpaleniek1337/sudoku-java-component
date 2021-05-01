@@ -8,9 +8,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 
-public class SudokuField implements Observable, Serializable {
+public class SudokuField implements Observable, Serializable, Comparable<SudokuField>, Cloneable {
     private int value;
-    public List<Observer> observers = new ArrayList<Observer>();
+    public List<Observer> observers = new ArrayList<>();
     
     public SudokuField() {
         this.value = 0;
@@ -51,12 +51,22 @@ public class SudokuField implements Observable, Serializable {
 
     @Override
     public boolean equals(Object obj) {
-		if ( obj == null) {
+        if (obj == null) {
             return false;
         }
         if (obj.getClass() != getClass()) {
             return false;
         }
         return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int compareTo(SudokuField o) {
+        return Integer.compare(this.value, o.getFieldValue());
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

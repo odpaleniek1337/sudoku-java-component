@@ -1,9 +1,7 @@
 package compprog.sudoku;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -11,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
  *Abstract class for similar objects containing SudokuFields.
  */
-public abstract class Sudoku9 implements Observer {
+public abstract class Sudoku9 implements Observer, Cloneable {
     protected List<SudokuField> fields;
     
     public Sudoku9() {
@@ -53,12 +51,17 @@ public abstract class Sudoku9 implements Observer {
 
     @Override
     public boolean equals(Object obj) {
-		if ( obj == null) {
+        if (obj == null) {
             return false;
         }
         if (obj.getClass() != getClass()) {
             return false;
         }
         return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
