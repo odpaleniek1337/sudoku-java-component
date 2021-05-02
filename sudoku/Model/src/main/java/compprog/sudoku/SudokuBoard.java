@@ -17,7 +17,7 @@ public class SudokuBoard implements Serializable, Cloneable {
        board = Arrays.asList(new SudokuField[81]);
        this.sudokuSolver = solver;
     }
-    
+
     private void cellsToZero() {
         for (int x = 0; x < 81; x++) {
             setCellValue(x, 0);
@@ -89,8 +89,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
         return false;
     }
-    
-    
+
     /**
       *Hides cells with given indexes.
       * 
@@ -227,7 +226,12 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public SudokuBoard clone() throws CloneNotSupportedException {
+        SudokuBoard clonedBoard = new SudokuBoard(this.sudokuSolver);
+        clonedBoard.createFields();
+        for (int z = 0; z < 81; z++) {
+            clonedBoard.setCellValue(z, this.getCellValue(z));
+        }
+        return clonedBoard;
     }
 }

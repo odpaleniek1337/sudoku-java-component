@@ -133,4 +133,15 @@ public class SudokuBoardTest {
         assertTrue(toString.contains("board"));
         assertTrue(toString.contains("sudokuSolver"));
     }
+
+    @Test
+    public void testCloneBoard() throws CloneNotSupportedException {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        board.solveGame();
+        SudokuBoard newBoard = board.clone();
+        assertEquals(board.getCellValue(5),newBoard.getCellValue(5));
+        board.setCellValue(5, 9);
+        board.setCellValue(6, 9);
+        assertNotEquals(board.getCellValue(5) + board.getCellValue(6), newBoard.getCellValue(5) + newBoard.getCellValue(6));
+    }
 }

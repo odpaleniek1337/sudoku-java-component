@@ -61,7 +61,7 @@ public class SudokuField implements Observable, Serializable, Comparable<SudokuF
     }
 
     @Override
-    public int compareTo(SudokuField o) {
+    public int compareTo(SudokuField o) throws NullPointerException {
         return Integer.compare(this.value, o.getFieldValue());
     }
 
