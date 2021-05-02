@@ -20,4 +20,9 @@ public class SudokuColumn extends Sudoku9 implements Serializable {
     public boolean colummnEquals(Object obj) {
         return this.equals(obj);
     }
+
+    public SudokuColumn cloneColumn() throws CloneNotSupportedException {
+        SudokuColumn clone = (SudokuColumn) super.clone();
+        return clone;
+    }
 }

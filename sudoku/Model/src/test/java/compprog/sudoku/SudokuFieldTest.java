@@ -53,4 +53,13 @@ public class SudokuFieldTest {
         assertTrue(toString.contains("observers"));
         assertTrue(toString.contains("1"));
     }
+
+    @Test
+    public void testFieldCloning() throws CloneNotSupportedException {
+        SudokuField field1 = new SudokuField();
+        field1.setFieldValue(5);
+        SudokuField field2 = field1.clone();
+        assertEquals(field1.getFieldValue(), field2.getFieldValue());
+        assertEquals(field1.observers, field2.observers);
+    }
 }

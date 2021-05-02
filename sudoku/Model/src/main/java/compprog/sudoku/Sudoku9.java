@@ -31,9 +31,9 @@ public abstract class Sudoku9 implements Observer, Cloneable {
     @Override
     public void update(boolean verify) {
         if (verify) {
-            System.out.println("Verification succesful :)");
+            //System.out.println("Verification succesful :)");
         } else {
-            System.out.println("Verification unsuccesful :(");
+            //System.out.println("Verification unsuccesful :(");
         }
     }
 

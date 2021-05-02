@@ -35,4 +35,15 @@ public class SudokuBoxTest {
         SudokuBox box = board.getBox(0);
         assertTrue(box.boxToString().contains("fields"));
     }
+
+    @Test
+    public void testBoxCloning() throws CloneNotSupportedException {
+        SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+        board.solveGame();
+        SudokuBox box1 = board.getBox(0);
+        SudokuBox box2 = box1.cloneBox();
+        assertTrue(box1.equals(box2));
+        SudokuBox box3 = board.getBox(1);
+        assertFalse(box1.equals(box3));
+    }
 }

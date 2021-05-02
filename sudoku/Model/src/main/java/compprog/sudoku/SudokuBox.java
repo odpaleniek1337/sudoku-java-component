@@ -20,4 +20,9 @@ public class SudokuBox extends Sudoku9 implements Serializable {
     public boolean boxEquals(Object obj) {
         return this.equals(obj);
     }
+
+    public SudokuBox cloneBox() throws CloneNotSupportedException {
+        SudokuBox clone = (SudokuBox) super.clone();
+        return clone;
+    }
 }
