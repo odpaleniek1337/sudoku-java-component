@@ -1,7 +1,9 @@
 package compprog.sudoku;
 
-import java.util.*;
-
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -15,7 +17,12 @@ public abstract class Sudoku9 implements Observer, Cloneable {
     public Sudoku9() {
         fields = Arrays.asList(new SudokuField[9]);
     }
-    
+
+    /**
+     * Returns true when given object has correct values, false otherwise.
+     *
+     * @return bool
+     */
     public boolean verify() {
         Set<Integer> foundNumbers = new HashSet<Integer>();
         for (int i = 0; i < 9; i++) {

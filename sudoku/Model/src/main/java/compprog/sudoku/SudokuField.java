@@ -23,13 +23,21 @@ public class SudokuField implements Observable, Serializable, Comparable<SudokuF
     public void setFieldValue(int value) {
         this.value = value;
     }
-    
+
+    /**
+     * Adds observers to this field.
+     *
+     * @param addedObservers unspecified number of observers
+     */
     public void addObservers(Observer... addedObservers) {
         for (Observer observer : addedObservers) {
             this.observers.add(observer);
         }
     }
-    
+
+    /**
+     * Notifies observers to this field.
+     */
     public void notifyObservers() {
         for (Observer observer : observers) {
             observer.update(observer.verify());

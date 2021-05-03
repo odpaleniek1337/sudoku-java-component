@@ -54,8 +54,8 @@ public class SudokuRowTest {
         SudokuRow row1 = board.getRow(0);
         SudokuRow row2 = row1.cloneRow();
         assertTrue(row1.equals(row2));
-        SudokuRow row3 = board.getRow(1);
-        assertFalse(row1.equals(row3));
+        row1 = board.getRow(1);
+        assertFalse(row1.equals(row2));
     }
 
 }

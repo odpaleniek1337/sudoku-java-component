@@ -58,7 +58,14 @@ public class SudokuBoard implements Serializable, Cloneable {
         Collections.sort(array);
         return array;
     }
-    
+
+    /**
+     * Returns true if value is already in certain row, false otherwise.
+     *
+     * @param number field value to be checked
+     * @param row number of row in our board
+     * @return bool
+     */
     public boolean isInRow(int number, int row) {
         for (int i = 0; i < 9; i++) {
             if (number == getCellValue(row * 9 + i)) {
@@ -67,7 +74,14 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
         return false;
     }
-    
+
+    /**
+     * Returns true if value is already in certain column, false otherwise.
+     *
+     * @param number field value to be checked
+     * @param column number of column in our board
+     * @return bool
+     */
     public boolean isInColumn(int number, int column) {
         for (int i = 0; i < 9; i++) {
             if (number == getCellValue(column + 9 * i)) {
@@ -76,7 +90,15 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
         return false;
     }
-    
+
+    /**
+     * Returns true if value is already in certain square, false otherwise.
+     *
+     * @param number field value to be checked
+     * @param row number of row in our board
+     * @param column number of column in our board
+     * @return bool
+     */
     public boolean isInSquare(int number, int row, int column) {
         int rowFactor = row / 3 * 3; //we get first row from that square
         int colFactor = column / 3 * 3; //we get first column from that square
@@ -125,7 +147,10 @@ public class SudokuBoard implements Serializable, Cloneable {
     public void setBoardForGame(int hints) {
         createPuzzle(randomizeHints(hints)); 
     }
-    
+
+    /**
+     * Given function displays board in console.
+     */
     public void display() {
         for (int i = 0; i < 9; i++) {
             int[] row = new int[9];
@@ -135,11 +160,23 @@ public class SudokuBoard implements Serializable, Cloneable {
             System.out.println(Arrays.toString(row));
         }
     }
-    
+
+    /**
+     * Returns int value stored in certain cell.
+     *
+     * @param cell number indicating cell number in our board
+     * @return int
+     */
     public int getCellValue(int cell) {
         return board.get(cell).getFieldValue();
     }
-    
+
+    /**
+     * Sets int value in certain cell and adding observers to the cell.
+     *
+     * @param cell number indicating cell number in our board
+     * @param value number which cell value will be updated
+     */
     public void setCellValue(int cell, int value) {
         board.get(cell).setFieldValue(value);
         int row = cell / 9;
@@ -151,7 +188,13 @@ public class SudokuBoard implements Serializable, Cloneable {
         board.get(cell).notifyObservers();
         board.get(cell).setFieldValue(value);
     }
-    
+
+    /**
+     * Returns SudokuRow object with given number.
+     *
+     * @param rowNumber number indicating row
+     * @return new SudokuRow object with values of given rowNumber
+     */
     public SudokuRow getRow(int rowNumber) {
         List<SudokuField> row;
         row = Arrays.asList(new SudokuField[9]);
@@ -162,7 +205,13 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
         return new SudokuRow(row);
     }
-    
+
+    /**
+     * Returns SudokuColumn object with given number.
+     *
+     * @param columnNumber number indicating column
+     * @return new SudokuColumn object with values of given columnNumber
+     */
     public SudokuColumn getColumn(int columnNumber) {
         List<SudokuField> column;
         column = Arrays.asList(new SudokuField[9]);
@@ -171,7 +220,13 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
         return new SudokuColumn(column);
     }
-    
+
+    /**
+     * Returns SudokuBox object with given number.
+     *
+     * @param boxNumber number indicating column
+     * @return new SudokuBox object with values of given boxNumber
+     */
     public SudokuBox getBox(int boxNumber) {
         List<SudokuField> box;
         box = Arrays.asList(new SudokuField[9]);
@@ -194,7 +249,10 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
         return true;
     }
-    
+
+    /**
+     * Creates first row of fields, solves given board if possible and displays it.
+     */
     public void solveGame() {
         makeBoard();
         sudokuSolver.solve(this);
