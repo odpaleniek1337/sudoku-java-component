@@ -1,39 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-    <center>
-        <TextArea prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-    </center>
-    <bottom>
-        <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
-    </bottom>
-    <top>
-        <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-    </top>
-</BorderPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.StageController">
+   <children>
+      <ToggleButton fx:id="easyBtn" layoutX="99.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="Easy">
+         <toggleGroup>
+            <ToggleGroup fx:id="diffGroup" />
+         </toggleGroup></ToggleButton>
+      <ToggleButton fx:id="mediumBtn" layoutX="232.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="Medium" toggleGroup="$diffGroup" />
+      <ToggleButton fx:id="hardBtn" layoutX="364.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="Hard" toggleGroup="$diffGroup" />
+      <Button layoutX="188.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleBtn1" prefHeight="25.0" prefWidth="176.0" text="New Game" textFill="#3a519e" />
+      <Label layoutX="216.0" layoutY="92.0" text="Sudoku">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

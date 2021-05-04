@@ -137,7 +137,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         for (int i = 0; i < 9; i++) {
             setCellValue(i, intArray[i]);
         }
-    } 
+    }
     
     /**
       *Hides all cells except randomized ones.
