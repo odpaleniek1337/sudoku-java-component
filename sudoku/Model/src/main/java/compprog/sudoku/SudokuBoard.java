@@ -138,6 +138,18 @@ public class SudokuBoard implements Serializable, Cloneable {
             setCellValue(i, intArray[i]);
         }
     }
+
+    /**
+     *Creates new board from numbers typed in GUI by User.
+     */
+    public void makeNewBoard(List<Integer> intList) {
+        createFields();
+        cellsToZero();
+
+        for (int i = 0; i < 81; i++) {
+            setCellValue(i, intList.get(i));
+        }
+    }
     
     /**
       *Hides all cells except randomized ones.
@@ -159,6 +171,7 @@ public class SudokuBoard implements Serializable, Cloneable {
             }
             System.out.println(Arrays.toString(row));
         }
+        System.out.println("\n");
     }
 
     /**
@@ -239,8 +252,11 @@ public class SudokuBoard implements Serializable, Cloneable {
         }
         return new SudokuBox(box);
     }
-    
-    protected boolean checkBoard() {
+
+    /**
+     * Checking if board is completed according to Sudoku Game rules.
+     */
+    public boolean checkBoard() {
         for (int i = 0; i < 9; i++) {
             if (!(getColumn(i).verify() && getRow(i).verify()
                     && getBox(i).verify())) {

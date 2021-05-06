@@ -1,6 +1,7 @@
 package JavaFX;
 
 import compprog.sudoku.SudokuDifficulty;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class StageController {
 
@@ -43,8 +42,15 @@ public class StageController {
     @FXML
     public void setDifficultyBtn() {
         diffGroup.getSelectedToggle();
-        if(easyBtn.isSelected()) diff = SudokuDifficulty.EASY;
-        if(mediumBtn.isSelected()) diff = SudokuDifficulty.MEDIUM;
-        if(hardBtn.isSelected()) diff = SudokuDifficulty.HARD;
+
+        if (easyBtn.isSelected()) {
+            diff = SudokuDifficulty.EASY;
+        }
+        if (mediumBtn.isSelected()) {
+            diff = SudokuDifficulty.MEDIUM;
+        }
+        if (hardBtn.isSelected()) {
+            diff = SudokuDifficulty.HARD;
+        }
     }
 }
