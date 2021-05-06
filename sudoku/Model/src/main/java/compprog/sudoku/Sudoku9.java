@@ -27,7 +27,7 @@ public abstract class Sudoku9 implements Observer, Cloneable {
         Set<Integer> foundNumbers = new HashSet<Integer>();
         for (int i = 0; i < 9; i++) {
             int potentialValue = fields.get(i).getFieldValue();
-            if (foundNumbers.contains(potentialValue)) {
+            if (foundNumbers.contains(potentialValue) || potentialValue == 0) {
                 return false;
             }
             foundNumbers.add(potentialValue);
