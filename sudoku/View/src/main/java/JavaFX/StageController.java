@@ -2,6 +2,7 @@ package JavaFX;
 
 import compprog.sudoku.SudokuDifficulty;
 import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,10 +29,22 @@ public class StageController {
     private ToggleButton hardBtn;
 
     static SudokuDifficulty diff;
+    static boolean loadingGame = false;
+
 
     @FXML
     public void handleBtn1(ActionEvent event) throws IOException {
 
+        root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void loadingGame(ActionEvent event) throws IOException {
+        loadingGame = true;
         root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -52,5 +65,9 @@ public class StageController {
         if (hardBtn.isSelected()) {
             diff = SudokuDifficulty.HARD;
         }
+    }
+
+    public boolean getLoadState() {
+        return loadingGame;
     }
 }

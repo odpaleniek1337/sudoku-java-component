@@ -3,6 +3,7 @@ package JavaFX;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -14,7 +15,8 @@ public class JavaFxMain extends Application {
         Pane mainPne = FXMLLoader.load(getClass().getResource("/MainView.fxml"));
         Scene scene = new Scene(mainPne);
         stage.setScene(scene);
-        stage.setTitle("sudoku");
+        stage.setTitle("Sudoku Game");
+        stage.getIcons().add(new Image("sudokuGame_icon.png"));
         stage.show();
     }
 

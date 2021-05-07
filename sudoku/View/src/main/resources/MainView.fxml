@@ -21,5 +21,6 @@
             <Font size="36.0" />
          </font>
       </Label>
+      <Button layoutX="482.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadingGame" text="Load Game" />
    </children>
 </Pane>
