@@ -5,6 +5,8 @@ import compprog.sudoku.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import compprog.sudoku.SudokuBoardDaoFactory;
 import javafx.application.Platform;
@@ -28,6 +30,7 @@ public class SudokuGameController {
     private SudokuBoard board;
     private SudokuBoardDaoFactory factory;
     Dao<SudokuBoard> factoryDao = factory.getFileDao("sudokuState.txt");
+    ResourceBundle bundle = StageController.setBundle();
 
     public SudokuGameController() {
         fields = new ArrayList();
@@ -77,9 +80,9 @@ public class SudokuGameController {
         SudokuBoard boardCheck = gameToBoard();
         boardCheck.display();
         if (boardCheck.checkBoard()) {
-            textArea.setText("Congratulations you have correctly completed Sudoku!");
+            textArea.setText(bundle.getString("correctBoardText"));
         } else {
-            textArea.setText("Something is wrong! :(");
+            textArea.setText(bundle.getString("wrongBoardText"));
         }
     }
 

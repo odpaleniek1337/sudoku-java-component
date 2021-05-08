@@ -2,6 +2,11 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
@@ -9,18 +14,39 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.StageController">
    <children>
-      <ToggleButton fx:id="easyBtn" layoutX="99.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="Easy">
+      <ToggleButton fx:id="easyBtn" layoutX="99.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="%diffButton1">
          <toggleGroup>
             <ToggleGroup fx:id="diffGroup" />
          </toggleGroup></ToggleButton>
-      <ToggleButton fx:id="mediumBtn" layoutX="232.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="Medium" toggleGroup="$diffGroup" />
-      <ToggleButton fx:id="hardBtn" layoutX="364.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="Hard" toggleGroup="$diffGroup" />
-      <Button layoutX="188.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleBtn1" prefHeight="25.0" prefWidth="176.0" text="New Game" textFill="#3a519e" />
-      <Label layoutX="216.0" layoutY="92.0" text="Sudoku">
+      <ToggleButton fx:id="mediumBtn" layoutX="232.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="%diffButton2" toggleGroup="$diffGroup" />
+      <ToggleButton fx:id="hardBtn" layoutX="364.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="%diffButton3" toggleGroup="$diffGroup" />
+      <Button layoutX="188.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleBtn1" prefHeight="25.0" prefWidth="176.0" text="%startButton" textFill="#3a519e" />
+      <Label layoutX="216.0" layoutY="92.0" text="%title">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button layoutX="482.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadingGame" text="Load Game" />
+      <Button layoutX="482.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadingGame" text="%loadButton" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="%languageChoice">
+            <items>
+                  <RadioMenuItem fx:id="englishItem" mnemonicParsing="false" onAction="#setLanguage" text="English">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="languageGroup" />
+                     </toggleGroup></RadioMenuItem>
+                  <RadioMenuItem fx:id="polskiItem" mnemonicParsing="false" onAction="#setLanguage" text="Polski" toggleGroup="$languageGroup" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#reloadStage" text="Unspecified Action" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="%aboutMenu">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Button layoutY="375.0" mnemonicParsing="false" onAction="#reloadStage" text="%changeLanguage" />
    </children>
 </Pane>
