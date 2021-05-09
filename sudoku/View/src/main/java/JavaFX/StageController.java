@@ -12,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class StageController {
@@ -23,9 +20,8 @@ public class StageController {
     @FXML
     private Stage stage;
     private Scene scene;
-    private Parent root;
     @FXML
-    private Pane mainPane;
+    private Parent root;
     @FXML
     private ToggleGroup languageGroup;
     @FXML
@@ -40,11 +36,31 @@ public class StageController {
     private ToggleButton mediumBtn;
     @FXML
     private ToggleButton hardBtn;
+    @FXML
+    private Label aboutLabel;
 
     static SudokuDifficulty diff;
     static SudokuLanguage language = SudokuLanguage.ENGLISH;
     static boolean loadingGame = false;
     static Locale locale;
+    static Locale listLocale;
+
+    @FXML
+    public void initialize() {
+        switch (language) {
+            case POLSKI -> {
+                polskiItem.setSelected(true);
+                listLocale = new Locale("pl", "PL");
+            }
+            case ENGLISH -> {
+                englishItem.setSelected(true);
+                listLocale = new Locale("en", "EN");
+            }
+        }
+        ResourceBundle listBundle = ResourceBundle.getBundle("JavaFX.i18n.Bundle", listLocale);
+        aboutLabel.setText(listBundle.getObject("aboutText") + "\n" + listBundle.getObject("authors") + " " + listBundle.getObject("author1") +
+                ", " +listBundle.getObject("author2") + "\n" + listBundle.getObject("version") + " " + listBundle.getObject("versionNumber"));
+    }
 
     public static ResourceBundle setBundle() {
         switch (language) {
@@ -57,7 +73,6 @@ public class StageController {
 
     @FXML
     public void handleBtn1(ActionEvent event) throws IOException {
-
         root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -76,9 +91,18 @@ public class StageController {
     }
 
     @FXML
-    public void reloadStage(ActionEvent event) throws IOException {
+    public void showAboutLabel() {
+        aboutLabel.setVisible(true);
+    }
+
+    @FXML
+    public void closeAboutLabel() {
+        aboutLabel.setVisible(false);
+    }
+
+    public void reloadStage() throws IOException {
+        stage = (Stage) root.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/MainView.fxml"), setBundle());
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -100,18 +124,16 @@ public class StageController {
     }
 
     @FXML
-    public void setLanguage() {
+    public void setLanguage() throws IOException {
         languageGroup.getSelectedToggle();
 
         if (englishItem.isSelected()) {
             language = SudokuLanguage.ENGLISH;
+            reloadStage();
         }
         if (polskiItem.isSelected()) {
             language = SudokuLanguage.POLSKI;
+            reloadStage();
         }
-    }
-
-    public boolean getLoadState() {
-        return loadingGame;
     }
 }
