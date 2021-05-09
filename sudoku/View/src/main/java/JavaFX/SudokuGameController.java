@@ -55,12 +55,8 @@ public class SudokuGameController {
     }
 
     private void displaySudoku() {
-        boardGrid.setStyle("-fx-padding: 5;" +
-                "-fx-border-style: solid inside;" +
-                "-fx-border-width: 2;" +
-                "-fx-border-insets: 5;" +
-                "-fx-border-radius: 5;" +
-                "-fx-border-color: black;");
+        boardGrid.setStyle("-fx-background-image: url('background_board.PNG')");
+
         for (int i = 0; i < 81; i++) {
             int row = i / 9;
             int column = i % 9;
@@ -130,7 +126,6 @@ public class SudokuGameController {
         } else {
             board = loadSudoku();
         }
-
         displaySudoku();
     }
 }

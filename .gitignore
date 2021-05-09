@@ -4,3 +4,4 @@
 *.iml
 *target/
 *file.txt
+*sudokuState.txt
