@@ -20,6 +20,7 @@ public class JavaFxMain extends Application {
         stage.setScene(scene);
         stage.setTitle("Sudoku Game");
         stage.getIcons().add(new Image("sudokuGame_icon.png"));
+        stage.setResizable(false);
         stage.show();
     }
 

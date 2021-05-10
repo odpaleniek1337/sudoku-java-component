@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.SudokuGameController">
    <children>
-      <GridPane fx:id="boardGrid" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="350.0" prefWidth="350.0">
+      <GridPane fx:id="boardGrid" alignment="CENTER" layoutX="25.0" layoutY="25.0" prefHeight="350.0" prefWidth="350.0">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="100.0" />
@@ -33,8 +33,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Button layoutX="449.0" layoutY="14.0" mnemonicParsing="false" onAction="#checkSudoku" text="%checkButton" />
-      <TextArea fx:id="textArea" editable="false" layoutX="390.0" layoutY="118.0" prefHeight="52.0" prefWidth="200.0" promptText="%textAreaPrompt" wrapText="true" />
-      <Button layoutX="490.0" layoutY="303.0" mnemonicParsing="false" onAction="#saveSudoku" text="%saveButton" />
+      <Button layoutX="400.0" layoutY="25.0" mnemonicParsing="false" onAction="#checkSudoku" text="%checkButton" />
+      <TextArea fx:id="textArea" editable="false" layoutX="400.0" layoutY="105.0" prefHeight="50.0" prefWidth="200.0" promptText="%textAreaPrompt" wrapText="true" />
+      <Button layoutX="400.0" layoutY="65.0" mnemonicParsing="false" onAction="#saveSudoku" text="%saveButton" />
    </children>
 </Pane>

@@ -74,6 +74,7 @@ public class StageController {
     @FXML
     public void handleBtn1(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
+        root.setStyle("-fx-background-image: url('SudokuGameViewBG.png')");
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
