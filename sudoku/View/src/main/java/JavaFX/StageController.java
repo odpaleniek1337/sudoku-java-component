@@ -1,6 +1,8 @@
 package JavaFX;
 
 import compprog.sudoku.SudokuDifficulty;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -38,6 +40,8 @@ public class StageController {
     private ToggleButton hardBtn;
     @FXML
     private Label aboutLabel;
+    @FXML
+    private Label notFoundLabel;
 
     static SudokuDifficulty diff;
     static SudokuLanguage language = SudokuLanguage.ENGLISH;
@@ -83,12 +87,22 @@ public class StageController {
 
     @FXML
     public void loadingGame(ActionEvent event) throws IOException {
-        loadingGame = true;
-        root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        File tmpDir = new File("./SudokuState.txt");
+        if (tmpDir.exists()) {
+            loadingGame = true;
+            root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            notFoundLabel.setVisible(true);
+        }
+    }
+
+    @FXML
+    public void closeNotFoundLabel() {
+        notFoundLabel.setVisible(false);
     }
 
     @FXML
