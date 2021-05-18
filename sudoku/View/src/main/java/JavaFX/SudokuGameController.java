@@ -98,7 +98,7 @@ public class SudokuGameController {
     }
 
     @FXML
-    private void saveSudoku() throws IOException, ClassNotFoundException {
+    private void saveSudoku() throws IOException {
         SudokuBoard saveBoard = gameToBoard();
         factoryDao.write(saveBoard);
     }
