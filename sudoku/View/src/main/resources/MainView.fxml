@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -13,20 +15,41 @@
 
 <Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.StageController">
    <children>
-      <ToggleButton fx:id="easyBtn" layoutX="99.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="%diffButton1">
+      <ToggleButton fx:id="easyBtn" layoutX="110.0" layoutY="167.0" mnemonicParsing="false" onAction="#setDifficultyBtn" pickOnBounds="false" prefHeight="90.0" prefWidth="147.0" stylesheets="@CustomShapes.css" text="%diffButton1">
          <toggleGroup>
             <ToggleGroup fx:id="diffGroup" />
-         </toggleGroup></ToggleButton>
-      <ToggleButton fx:id="mediumBtn" layoutX="232.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="%diffButton2" toggleGroup="$diffGroup" />
-      <ToggleButton fx:id="hardBtn" layoutX="364.0" layoutY="207.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="25.0" prefWidth="89.0" text="%diffButton3" toggleGroup="$diffGroup" />
-      <Button layoutX="188.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleBtn1" prefHeight="25.0" prefWidth="176.0" text="%startButton" textFill="#3a519e" />
-      <Label layoutX="216.0" layoutY="92.0" text="%title">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <Button layoutX="482.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadingGame" text="%loadButton" />
-      <MenuBar layoutY="3.0" prefHeight="25.0" prefWidth="600.0">
+         </toggleGroup>
+         <styleClass>
+            <String fx:value="btn" />
+            <String fx:value="btnChoose" />
+            <String fx:value="easy" />
+         </styleClass></ToggleButton>
+      <ToggleButton fx:id="mediumBtn" layoutX="257.0" layoutY="220.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="122.0" prefWidth="196.0" stylesheets="@CustomShapes.css" text="%diffButton2" toggleGroup="$diffGroup">
+         <styleClass>
+            <String fx:value="btn" />
+            <String fx:value="btnChoose" />
+            <String fx:value="mid" />
+         </styleClass></ToggleButton>
+      <ToggleButton fx:id="hardBtn" layoutX="324.0" layoutY="143.0" mnemonicParsing="false" onAction="#setDifficultyBtn" prefHeight="78.0" prefWidth="158.0" stylesheets="@CustomShapes.css" text="%diffButton3" toggleGroup="$diffGroup">
+         <styleClass>
+            <String fx:value="btn" />
+            <String fx:value="btnChoose" />
+            <String fx:value="hard" />
+         </styleClass></ToggleButton>
+      <Button layoutX="170.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleBtn1" prefHeight="64.0" prefWidth="281.0" stylesheets="@CustomShapes.css" text="%startButton">
+         <styleClass>
+            <String fx:value="start" />
+            <String fx:value="btnChoose" />
+         </styleClass></Button>
+      <Button alignment="TOP_RIGHT" layoutX="470.0" layoutY="32.0" mnemonicParsing="false" onAction="#loadingGame" prefHeight="95.0" prefWidth="130.0" stylesheets="@CustomShapes.css" text="%loadButton">
+         <styleClass>
+            <String fx:value="btnChoose" />
+            <String fx:value="load" />
+         </styleClass>
+         <padding>
+            <Insets right="10.0" top="15.0" />
+         </padding></Button>
+      <MenuBar prefHeight="25.0" prefWidth="600.0">
         <menus>
           <Menu mnemonicParsing="false" text="%languageChoice">
             <items>

@@ -104,6 +104,7 @@ public class StageController {
     public void reloadStage() throws IOException {
         stage = (Stage) root.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/MainView.fxml"), setBundle());
+        root.setStyle("-fx-background-image: url('mainViewBG.png')");
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -127,7 +128,6 @@ public class StageController {
     @FXML
     public void setLanguage() throws IOException {
         languageGroup.getSelectedToggle();
-
         if (englishItem.isSelected()) {
             language = SudokuLanguage.ENGLISH;
             reloadStage();

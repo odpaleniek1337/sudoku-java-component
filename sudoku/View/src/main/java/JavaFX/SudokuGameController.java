@@ -64,7 +64,7 @@ public class SudokuGameController {
                 fields.get(i).setText("");
             } else {
                 fields.get(i).setDisable(true);
-                fields.get(i).setStyle("-fx-opacity: 1;");
+                fields.get(i).setStyle("-fx-opacity: 1;" + "-fx-background-color: rgb(189,77,0)");
             }
             boardGrid.add(fields.get(i), column, row);
         }

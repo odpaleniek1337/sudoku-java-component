@@ -16,6 +16,7 @@ public class JavaFxMain extends Application {
     public void start(Stage stage) throws Exception {
         ResourceBundle bundle = StageController.setBundle();
         Pane mainPne = FXMLLoader.load(getClass().getResource("/MainView.fxml"), bundle);
+        mainPne.setStyle("-fx-background-image: url('mainViewBG.png')");
         Scene scene = new Scene(mainPne);
         stage.setScene(scene);
         stage.setTitle("Sudoku Game");

@@ -1,0 +1,30 @@
+.btnChoose{
+    -fx-border-color: "black";
+}
+
+.btn{
+    -fx-background-color: "#e97300";
+}
+
+.btn:focused{
+    -fx-background-color: "#bd4d00";
+}
+
+.start{
+    -fx-shape:"M 172 70 L 400 44 L 450 87 L 192 119 L 171 73";
+}
+
+.easy{
+    -fx-shape:"M 110 180 L 222 165 L 259 238 L 130 258 L 110 180";
+}
+
+.mid{
+    -fx-shape:"M 257 236 L 374 220 L 452 312 L 312 341 L 257 236";
+}
+.hard{
+    -fx-shape:"M 324 154 L 417 142 L 482 204 L 377 221 L 324 154";
+}
+
+.load{
+    -fx-shape:"M 473 44 L 600 32 L 600 125 L 473 44";
+}
