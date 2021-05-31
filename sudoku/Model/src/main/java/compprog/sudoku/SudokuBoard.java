@@ -162,6 +162,7 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     /**
      * Given function displays board in console.
+     * ONLY FOR DEBUGGING!
      */
     public void display() {
         for (int i = 0; i < 9; i++) {
