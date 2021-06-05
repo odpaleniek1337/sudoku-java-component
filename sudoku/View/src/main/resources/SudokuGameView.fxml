@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -36,5 +37,6 @@
       <Button layoutX="400.0" layoutY="25.0" mnemonicParsing="false" onAction="#checkSudoku" text="%checkButton" />
       <TextArea fx:id="textArea" editable="false" layoutX="400.0" layoutY="105.0" prefHeight="50.0" prefWidth="200.0" promptText="%textAreaPrompt" wrapText="true" />
       <Button layoutX="400.0" layoutY="65.0" mnemonicParsing="false" onAction="#saveSudoku" text="%saveButton" />
+      <TextField fx:id="filenameField" layoutX="500.0" layoutY="65.0" prefHeight="25.0" prefWidth="85.0" promptText="%inputFilenamePromptToSave"/>
    </children>
 </Pane>

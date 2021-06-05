@@ -3,5 +3,6 @@
 /.idea/
 *.iml
 *target/
-*file.txt
-*sudokuState.txt
+*.sudoku
+*.log
+*.txt

@@ -25,10 +25,13 @@ public class SudokuGameController {
     @FXML
     private TextArea textArea;
 
+    @FXML
+    private TextField filenameField;
+
     private final List<TextField> fields;
     private SudokuBoard board;
     private SudokuBoardDaoFactory factory;
-    Dao<SudokuBoard> factoryDao = factory.getFileDao("sudokuState.txt");
+    Dao<SudokuBoard> factoryDao;
     ResourceBundle bundle = StageController.setBundle();
 
     public SudokuGameController() {
@@ -100,10 +103,14 @@ public class SudokuGameController {
     @FXML
     private void saveSudoku() throws IOException {
         SudokuBoard saveBoard = gameToBoard();
+        String filename = "./" + filenameField.getText() + ".sudoku";
+        factoryDao = factory.getFileDao(filename);
         factoryDao.write(saveBoard);
     }
 
     private SudokuBoard loadSudoku() throws IOException, ClassNotFoundException {
+        String filename = StageController.filename;
+        factoryDao = factory.getFileDao(filename);
         SudokuBoard boardRead = factoryDao.read();
         return boardRead;
     }

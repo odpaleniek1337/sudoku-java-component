@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import compprog.sudoku.SudokuLanguage;
+import exceptions.FileException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StageController {
 
@@ -42,6 +46,9 @@ public class StageController {
     private Label aboutLabel;
     @FXML
     private Label notFoundLabel;
+    @FXML
+    private TextField filenameTextArea;
+    static String filename;
 
     static SudokuDifficulty diff;
     static SudokuLanguage language = SudokuLanguage.ENGLISH;
@@ -85,19 +92,34 @@ public class StageController {
         stage.show();
     }
 
-    @FXML
-    public void loadingGame(ActionEvent event) throws IOException {
-        File tmpDir = new File("./SudokuState.txt");
-        if (tmpDir.exists()) {
-            loadingGame = true;
-            root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } else {
-            notFoundLabel.setVisible(true);
+    @FXML void loadGame(ActionEvent event) throws FileException{
+        try {
+            filename = "./" + filenameTextArea.getText() + ".sudoku";
+            File tmpDir = new File(filename);
+            if (!tmpDir.exists()) {
+                notFoundLabel.setVisible(true);
+                throw new FileException();
+            } else {
+                launchLoadedGame(event);
+            }
+        } catch(IOException exception) {
+            Logger logger = LoggerFactory.getLogger(StageController.class);
+            logger.error("Cannot load game with given name!! - " + filename);
+        } catch (FileException exception) {
+            Logger logger = LoggerFactory.getLogger(StageController.class);
+            logger.warn("There is no such file: " + filename);
         }
+    }
+
+
+    @FXML
+    public void launchLoadedGame(ActionEvent event) throws IOException {
+        loadingGame = true;
+        root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
