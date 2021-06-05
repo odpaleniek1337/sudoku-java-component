@@ -3,6 +3,7 @@ package compprog.sudoku;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,6 +21,8 @@ public class SudokuDaoTest {
         String stringRead = dao.read();
         assertEquals(stringOriginal, stringRead);
         dao.close();
+        File file = new File("file.txt");
+        file.delete();
     }
 
     @Test
@@ -41,5 +44,9 @@ public class SudokuDaoTest {
         for (int i = 0; i < 81; i++) {
             Assertions.assertEquals(boardCopy[i], boardRead.getCellValue(i));
         }
+        factoryDao.close();
+
+        File file = new File("anotherFile.txt");
+        file.delete();
     }
 }
