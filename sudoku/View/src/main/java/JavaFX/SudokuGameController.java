@@ -8,31 +8,38 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import compprog.sudoku.SudokuBoardDaoFactory;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 
 
 public class SudokuGameController {
 
     @FXML
     private GridPane boardGrid;
-
     @FXML
     private TextArea textArea;
-
     @FXML
     private TextField filenameField;
+    @FXML
+    private Label saveLabel;
 
     private final List<TextField> fields;
     private SudokuBoard board;
     private SudokuBoardDaoFactory factory;
     Dao<SudokuBoard> factoryDao;
     ResourceBundle bundle = StageController.setBundle();
+
+    PauseTransition visiblePause = new PauseTransition(
+            Duration.seconds(3)
+    );
 
     public SudokuGameController() {
         fields = new ArrayList();
@@ -54,6 +61,9 @@ public class SudokuGameController {
         }
         factory = new SudokuBoardDaoFactory();
         board = new SudokuBoard(new BacktrackingSudokuSolver());
+        visiblePause.setOnFinished(
+                event -> saveLabel.setVisible(false)
+        );
     }
 
     private void displaySudoku() {
@@ -84,6 +94,11 @@ public class SudokuGameController {
         }
     }
 
+    @FXML
+    public void closeSaveLabel() {
+        saveLabel.setVisible(false);
+    }
+
     private SudokuBoard gameToBoard() {
         List<Integer> fieldsChecked = new ArrayList<Integer>();
         SudokuBoard newBoard = new SudokuBoard(new BacktrackingSudokuSolver());
@@ -102,10 +117,17 @@ public class SudokuGameController {
 
     @FXML
     private void saveSudoku() throws IOException {
-        SudokuBoard saveBoard = gameToBoard();
-        String filename = "./" + filenameField.getText() + ".sudoku";
-        factoryDao = factory.getFileDao(filename);
-        factoryDao.write(saveBoard);
+        if(!filenameField.getText().equals("")) {
+            SudokuBoard saveBoard = gameToBoard();
+            String filename = "./" + filenameField.getText() + ".sudoku";
+            factoryDao = factory.getFileDao(filename);
+            factoryDao.write(saveBoard);
+            saveLabel.setText(bundle.getString("saveComplete"));
+        } else {
+            saveLabel.setText(bundle.getString("saveNoFilename"));
+        }
+        saveLabel.setVisible(true);
+        visiblePause.play();
     }
 
     private SudokuBoard loadSudoku() throws IOException, ClassNotFoundException {
