@@ -83,16 +83,20 @@ public class StageController {
     }
 
     @FXML
-    public void handleBtn1(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
-        root.setStyle("-fx-background-image: url('SudokuGameViewBG.png')");
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void handleBtn1(ActionEvent event) throws Exception {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
+            root.setStyle("-fx-background-image: url('SudokuGameViewBG.png')");
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception exception) {
+            throw new Exception("Error occurred during changing stage!!", exception);
+        }
     }
 
-    @FXML void loadGame(ActionEvent event) throws FileException{
+    @FXML void loadGame(ActionEvent event) throws Exception {
         try {
             filename = "./" + filenameTextArea.getText() + ".sudoku";
             File tmpDir = new File(filename);
@@ -113,13 +117,17 @@ public class StageController {
 
 
     @FXML
-    public void launchLoadedGame(ActionEvent event) throws IOException {
-        loadingGame = true;
-        root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void launchLoadedGame(ActionEvent event) throws Exception {
+        try {
+            loadingGame = true;
+            root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception exception) {
+            throw new Exception("Error occurred during launching loaded game!!", exception);
+        }
     }
 
     @FXML
@@ -137,13 +145,17 @@ public class StageController {
         aboutLabel.setVisible(false);
     }
 
-    public void reloadStage() throws IOException {
-        stage = (Stage) root.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/MainView.fxml"), setBundle());
-        root.setStyle("-fx-background-image: url('mainViewBG.png')");
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void reloadStage() throws Exception {
+        try {
+            stage = (Stage) root.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("/MainView.fxml"), setBundle());
+            root.setStyle("-fx-background-image: url('mainViewBG.png')");
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception exception) {
+            throw new Exception("Error occurred during reloading stage!!", exception);
+        }
     }
 
     @FXML
@@ -162,15 +174,19 @@ public class StageController {
     }
 
     @FXML
-    public void setLanguage() throws IOException {
-        languageGroup.getSelectedToggle();
-        if (englishItem.isSelected()) {
-            language = SudokuLanguage.ENGLISH;
-            reloadStage();
-        }
-        if (polskiItem.isSelected()) {
-            language = SudokuLanguage.POLSKI;
-            reloadStage();
+    public void setLanguage() throws Exception {
+        try {
+            languageGroup.getSelectedToggle();
+            if (englishItem.isSelected()) {
+                language = SudokuLanguage.ENGLISH;
+                reloadStage();
+            }
+            if (polskiItem.isSelected()) {
+                language = SudokuLanguage.POLSKI;
+                reloadStage();
+            }
+        } catch (Exception exception) {
+            throw new Exception("Error occurred during setting language of the game!!", exception);
         }
     }
 }

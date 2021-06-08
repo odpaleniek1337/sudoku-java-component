@@ -2,12 +2,14 @@ package JavaFX;
 
 import compprog.sudoku.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import compprog.sudoku.SudokuBoardDaoFactory;
+import exceptions.FileException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +20,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class SudokuGameController {
@@ -116,44 +120,57 @@ public class SudokuGameController {
     }
 
     @FXML
-    private void saveSudoku() throws IOException {
-        if(!filenameField.getText().equals("")) {
-            SudokuBoard saveBoard = gameToBoard();
-            String filename = "./" + filenameField.getText() + ".sudoku";
-            factoryDao = factory.getFileDao(filename);
-            factoryDao.write(saveBoard);
-            saveLabel.setText(bundle.getString("saveComplete"));
-        } else {
-            saveLabel.setText(bundle.getString("saveNoFilename"));
+    private void saveSudoku() {
+        try {
+            if (!filenameField.getText().equals("")) {
+                SudokuBoard saveBoard = gameToBoard();
+                String filename = "./" + filenameField.getText() + ".sudoku";
+                factoryDao = factory.getFileDao(filename);
+                factoryDao.write(saveBoard);
+                saveLabel.setText(bundle.getString("saveComplete"));
+            } else {
+                saveLabel.setText(bundle.getString("saveNoFilename"));
+            }
+            saveLabel.setVisible(true);
+            visiblePause.play();
+        } catch(IOException exception) {
+            Logger logger = LoggerFactory.getLogger(StageController.class);
+            logger.error("Error occurred during saving game!!");
         }
-        saveLabel.setVisible(true);
-        visiblePause.play();
     }
 
-    private SudokuBoard loadSudoku() throws IOException, ClassNotFoundException {
-        String filename = StageController.filename;
-        factoryDao = factory.getFileDao(filename);
-        SudokuBoard boardRead = factoryDao.read();
-        return boardRead;
+    private SudokuBoard loadSudoku() throws Exception {
+        try {
+            String filename = StageController.filename;
+            factoryDao = factory.getFileDao(filename);
+            SudokuBoard boardRead = factoryDao.read();
+            return boardRead;
+        } catch (Exception exception) {
+            throw new Exception("Error occurred during loading game!!", exception);
+        }
     }
 
     @FXML
-    public void initialize() throws IOException, ClassNotFoundException {
-        if (!StageController.loadingGame) {
-            board.solveGame();
+    public void initialize() throws Exception {
+        try {
+            if (!StageController.loadingGame) {
+                board.solveGame();
 
-            if (StageController.diff == null) {
-                board.setBoardForGame(20);
-            } else {
-                switch (StageController.diff) {
-                    case EASY -> board.setBoardForGame(20);
-                    case MEDIUM -> board.setBoardForGame(35);
-                    case HARD -> board.setBoardForGame(50);
+                if (StageController.diff == null) {
+                    board.setBoardForGame(20);
+                } else {
+                    switch (StageController.diff) {
+                        case EASY -> board.setBoardForGame(20);
+                        case MEDIUM -> board.setBoardForGame(35);
+                        case HARD -> board.setBoardForGame(50);
+                    }
                 }
+            } else {
+                board = loadSudoku();
             }
-        } else {
-            board = loadSudoku();
+            displaySudoku();
+        } catch (Exception exception) {
+            throw new Exception("Error occurred during initializing SudokuGameController!!", exception);
         }
-        displaySudoku();
     }
 }
