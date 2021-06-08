@@ -14,5 +14,6 @@ public class Bundle_pl extends ListResourceBundle {
             { "version"   , "Wersja:" },
             { "versionNumber", "1.0" },
             { "aboutText", "Gra sudoku jest projektem zrealizowanym w ramach przedmiotu Component programming." },
+            { "noFile", "Nie ma takiej nazwy pliku. " },
     };
 }

@@ -111,7 +111,7 @@ public class StageController {
             logger.error("Cannot load game with given name!! - " + filename);
         } catch (FileException exception) {
             Logger logger = LoggerFactory.getLogger(StageController.class);
-            logger.warn("There is no such file: " + filename);
+            logger.warn(ResourceBundle.getBundle("JavaFX.i18n.Bundle", listLocale).getObject("noFile") + filename);
         }
     }
 

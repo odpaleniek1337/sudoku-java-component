@@ -14,5 +14,6 @@ public class Bundle_en extends ListResourceBundle {
             { "version"   , "Version:" },
             { "versionNumber", "1.0" },
             { "aboutText", "Sudoku game is a project made for Component programming classes." },
+            { "noFile", "There is no such file. " },
     };
 }
