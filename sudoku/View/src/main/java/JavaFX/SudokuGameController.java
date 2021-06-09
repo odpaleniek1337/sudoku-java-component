@@ -12,6 +12,8 @@ import compprog.sudoku.SudokuBoardDaoFactory;
 import exceptions.FileException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -20,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import javafx.util.converter.NumberStringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +38,7 @@ public class SudokuGameController {
     @FXML
     private Label saveLabel;
 
-    private final List<TextField> fields;
+    private List<TextField> fields;
     private SudokuBoard board;
     private SudokuBoardDaoFactory factory;
     Dao<SudokuBoard> factoryDao;
@@ -46,37 +49,73 @@ public class SudokuGameController {
     );
 
     public SudokuGameController() {
+        try {
+            if (!StageController.loadingGame) {
+                board = new SudokuBoard(new BacktrackingSudokuSolver());
+                board.solveGame();
+
+                if (StageController.diff == null) {
+                    board.setBoardForGame(20);
+                } else {
+                    switch (StageController.diff) {
+                        case EASY -> board.setBoardForGame(20);
+                        case MEDIUM -> board.setBoardForGame(35);
+                        case HARD -> board.setBoardForGame(50);
+                    }
+                }
+            } else {
+                board = loadSudoku();
+            }
+        } catch (Exception exception) {
+            try {
+                throw new Exception("Error occurred during initializing SudokuGameController!!", exception);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    public void initialize() throws NoSuchMethodException {
         fields = new ArrayList();
         for (int i = 0; i < 81; i++) {
+            int temp = i;
             TextField field = new TextField();
 
             field.setMaxHeight(25);
             field.setMaxWidth(25);
             field.setAlignment(Pos.CENTER);
+            Bindings.bindBidirectional(field.textProperty(),
+                    JavaBeanIntegerPropertyBuilder.create()
+                            .bean(board.getSudokuField(i))
+                            .name("value")
+                            .build(), new NumberStringConverter());
+
             field.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                if ((!field.getText().matches("[1-9]")) || field.getText().length() > 1) {
+                if ((!newValue.matches("[1-9]")) || newValue.length() > 1) {
                     Platform.runLater(() -> {
                         field.setText("");
                     });
+                    board.setCellValue(temp, 0);
                 }
             });
 
             fields.add(i, field);
         }
-        factory = new SudokuBoardDaoFactory();
-        board = new SudokuBoard(new BacktrackingSudokuSolver());
+        //factory = new SudokuBoardDaoFactory();
         visiblePause.setOnFinished(
                 event -> saveLabel.setVisible(false)
         );
+        displaySudoku();
     }
 
     private void displaySudoku() {
+        board.display();
         boardGrid.setStyle("-fx-background-image: url('background_board.PNG')");
-
         for (int i = 0; i < 81; i++) {
             int row = i / 9;
             int column = i % 9;
-            fields.get(i).setText(String.valueOf(board.getCellValue(i)));
+
             if (board.getCellValue(i) == 0) {
                 fields.get(i).setText("");
             } else {
@@ -89,9 +128,8 @@ public class SudokuGameController {
 
     @FXML
     private void checkSudoku() {
-        SudokuBoard boardCheck = gameToBoard();
-        boardCheck.display();
-        if (boardCheck.checkBoard()) {
+        board.display();
+        if (board.checkBoard()) {
             textArea.setText(bundle.getString("correctBoardText"));
         } else {
             textArea.setText(bundle.getString("wrongBoardText"));
@@ -103,30 +141,13 @@ public class SudokuGameController {
         saveLabel.setVisible(false);
     }
 
-    private SudokuBoard gameToBoard() {
-        List<Integer> fieldsChecked = new ArrayList<Integer>();
-        SudokuBoard newBoard = new SudokuBoard(new BacktrackingSudokuSolver());
-        for (int i = 0; i < 81; i++) {
-            TextField cell = (TextField) boardGrid.getChildren().get(i);
-            if (cell.getText().matches("[1-9]")) {
-                fieldsChecked.add(Integer.parseInt(cell.getText()));
-            } else {
-                fieldsChecked.add(0);
-                cell.setText("");
-            }
-        }
-        newBoard.makeNewBoard(fieldsChecked);
-        return newBoard;
-    }
-
     @FXML
     private void saveSudoku() {
         try {
             if (!filenameField.getText().equals("")) {
-                SudokuBoard saveBoard = gameToBoard();
                 String filename = "./" + filenameField.getText() + ".sudoku";
                 factoryDao = factory.getFileDao(filename);
-                factoryDao.write(saveBoard);
+                factoryDao.write(board);
                 saveLabel.setText(bundle.getString("saveComplete"));
             } else {
                 saveLabel.setText(bundle.getString("saveNoFilename"));
@@ -147,30 +168,6 @@ public class SudokuGameController {
             return boardRead;
         } catch (Exception exception) {
             throw new Exception("Error occurred during loading game!!", exception);
-        }
-    }
-
-    @FXML
-    public void initialize() throws Exception {
-        try {
-            if (!StageController.loadingGame) {
-                board.solveGame();
-
-                if (StageController.diff == null) {
-                    board.setBoardForGame(20);
-                } else {
-                    switch (StageController.diff) {
-                        case EASY -> board.setBoardForGame(20);
-                        case MEDIUM -> board.setBoardForGame(35);
-                        case HARD -> board.setBoardForGame(50);
-                    }
-                }
-            } else {
-                board = loadSudoku();
-            }
-            displaySudoku();
-        } catch (Exception exception) {
-            throw new Exception("Error occurred during initializing SudokuGameController!!", exception);
         }
     }
 }

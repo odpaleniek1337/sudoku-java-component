@@ -83,17 +83,18 @@ public class StageController {
     }
 
     @FXML
-    public void handleBtn1(ActionEvent event) throws Exception {
-        try {
+    public void handleBtn1(ActionEvent event) throws IOException {
+ //       try {
             root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
             root.setStyle("-fx-background-image: url('SudokuGameViewBG.png')");
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } catch (Exception exception) {
-            throw new Exception("Error occurred during changing stage!!", exception);
-        }
+//           } catch (Exception exception) {
+//            Logger logger = LoggerFactory.getLogger(StageController.class);
+//            logger.warn((String) ResourceBundle.getBundle("JavaFX.i18n.Bundle", listLocale).getObject("btn1Error"));
+//        }
     }
 
     @FXML void loadGame(ActionEvent event) throws Exception {
@@ -121,6 +122,7 @@ public class StageController {
         try {
             loadingGame = true;
             root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
+            root.setStyle("-fx-background-image: url('SudokuGameViewBG.png')");
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

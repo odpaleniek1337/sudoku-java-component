@@ -185,6 +185,10 @@ public class SudokuBoard implements Serializable, Cloneable {
         return board.get(cell).getFieldValue();
     }
 
+    public SudokuField getSudokuField(int i) {
+        return this.board.get(i);
+    }
+
     /**
      * Sets int value in certain cell and adding observers to the cell.
      *
@@ -199,7 +203,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         int colFactor = column / 3;
         board.get(cell).addObservers(getRow(row),
                 getColumn(column), getBox(rowFactor * 3 + colFactor));
-        board.get(cell).notifyObservers();
+//        board.get(cell).notifyObservers();
         board.get(cell).setFieldValue(value);
     }
 

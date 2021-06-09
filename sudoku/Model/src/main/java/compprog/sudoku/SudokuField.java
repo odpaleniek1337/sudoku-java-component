@@ -15,7 +15,16 @@ public class SudokuField implements Observable, Serializable, Comparable<SudokuF
     public SudokuField() {
         this.value = 0;
     }
-    
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        int oldValue = this.value;
+        this.value = value;
+    }
+
     public int getFieldValue() {
         return this.value;
     }
