@@ -55,7 +55,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.6</version>
                 <configuration>
-                    <excludes>JavaFX/JavaFx.class</excludes>
+                    <excludes>javafx/JavaFx.class</excludes>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,4 +1,5 @@
-package JavaFX.i18n;
+package javafx.i18n;
+
 import java.util.ListResourceBundle;
 
 public class Bundle_pl extends ListResourceBundle {
@@ -8,12 +9,13 @@ public class Bundle_pl extends ListResourceBundle {
     }
 
     private Object[][] contents = {
-            { "authors"   , "Autorzy:" },
-            { "author1"   , "Michał Augustyniak" },
+            { "authors", "Autorzy:" },
+            { "author1", "Michał Augustyniak" },
             { "author2", "Łukasz Rembowski" },
-            { "version"   , "Wersja:" },
+            { "version", "Wersja:" },
             { "versionNumber", "1.0" },
-            { "aboutText", "Gra sudoku jest projektem zrealizowanym w ramach przedmiotu Component programming." },
+            { "aboutText",
+                    "Sudoku jest projektem realizowanym podczas przedmiotu Component programming."},
             { "noFile", "Nie ma takiej nazwy pliku. " },
             { "btn1Error", "Wystąpił błąd podczas zmiany sceny! " },
     };

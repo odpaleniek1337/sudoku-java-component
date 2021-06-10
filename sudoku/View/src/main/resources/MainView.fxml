@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFX.StageController">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.StageController">
    <children>
       <ToggleButton fx:id="easyBtn" layoutX="110.0" layoutY="167.0" mnemonicParsing="false" onAction="#setDifficultyBtn" pickOnBounds="false" prefHeight="90.0" prefWidth="147.0" stylesheets="@CustomShapes.css" text="%diffButton1">
          <toggleGroup>

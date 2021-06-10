@@ -1,13 +1,12 @@
-package JavaFX;
+package javafx;
 
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.util.ResourceBundle;
 
 
 public class JavaFxMain extends Application {

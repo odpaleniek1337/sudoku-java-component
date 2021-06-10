@@ -203,7 +203,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         int colFactor = column / 3;
         board.get(cell).addObservers(getRow(row),
                 getColumn(column), getBox(rowFactor * 3 + colFactor));
-//        board.get(cell).notifyObservers();
+        //board.get(cell).notifyObservers();
         board.get(cell).setFieldValue(value);
     }
 
