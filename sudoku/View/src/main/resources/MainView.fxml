@@ -9,7 +9,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioMenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
@@ -68,21 +67,16 @@
                </items></Menu>
         </menus>
       </MenuBar>
-      <TextField fx:id="filenameTextArea" layoutX="403.0" layoutY="100.0" pickOnBounds="false" prefHeight="24.0" prefWidth="159.0" promptText="%inputFilenamePrompt" scaleShape="false" stylesheets="@CustomShapes.css">
+      <ComboBox fx:id="filenameComboBox" layoutX="403.0" layoutY="99.0" maxHeight="24.0" maxWidth="159.0" minHeight="24.0" minWidth="159.0" prefHeight="24.0" prefWidth="159.0" promptText="%inputFilenamePrompt" scaleShape="false" stylesheets="@CustomShapes.css">
          <styleClass>
             <String fx:value="btnChoose" />
             <String fx:value="input-name" />
-         </styleClass>
-         <font>
-            <Font size="10.0" />
-         </font>
-      </TextField>
+         </styleClass></ComboBox>
       <Label fx:id="aboutLabel" alignment="CENTER" layoutX="7.0" layoutY="33.0" onMouseClicked="#closeAboutLabel" prefHeight="352.0" prefWidth="583.0" style="-fx-background-color: white;" visible="false" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <Label fx:id="notSelectedLabel" alignment="CENTER" layoutX="9.0" layoutY="32.0" onMouseClicked="#closeNotSelectedLabel" prefHeight="364.0" prefWidth="583.0" style="-fx-background-color: white;" text="%notSelectedLabel" visible="false" />
-      <ComboBox fx:id="filenameComboBox" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="158.0" promptText="%inputFilenamePrompt" />
    </children>
 </Pane>
