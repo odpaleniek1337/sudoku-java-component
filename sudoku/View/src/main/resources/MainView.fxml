@@ -82,6 +82,7 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label fx:id="notSelectedLabel" alignment="CENTER" layoutX="9.0" layoutY="32.0" onMouseClicked="#closeNotSelectedLabel" prefHeight="364.0" prefWidth="583.0" style="-fx-background-color: white;" text="%notSelectedLabel" visible="false" />
       <ComboBox fx:id="filenameComboBox" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="158.0" promptText="%inputFilenamePrompt" />
    </children>
 </Pane>

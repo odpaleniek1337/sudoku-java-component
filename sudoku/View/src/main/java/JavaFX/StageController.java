@@ -51,6 +51,8 @@ public class StageController {
     @FXML
     private Label aboutLabel;
     @FXML
+    private Label notSelectedLabel;
+    @FXML
     private ComboBox filenameComboBox;
 
     static String filename;
@@ -126,7 +128,11 @@ public class StageController {
     @FXML void loadGame(ActionEvent event) throws Exception {
         try {
             filename = (String)filenameComboBox.getSelectionModel().getSelectedItem();
-            launchLoadedGame(event);
+            if (!filenameComboBox.getSelectionModel().isEmpty()) {
+                launchLoadedGame(event);
+            } else {
+                notSelectedLabel.setVisible(true);
+            }
         } catch(IOException exception) {
             Logger logger = LoggerFactory.getLogger(StageController.class);
             logger.error("Cannot load game with given name!! - " + filename);
@@ -147,6 +153,11 @@ public class StageController {
         } catch (Exception exception) {
             throw new Exception("Error occurred during launching loaded game!!", exception);
         }
+    }
+
+    @FXML
+    public void closeNotSelectedLabel() {
+        notSelectedLabel.setVisible(false);
     }
 
     @FXML
