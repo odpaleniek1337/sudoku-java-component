@@ -2,14 +2,12 @@ package JavaFX;
 
 import compprog.sudoku.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import compprog.sudoku.SudokuBoardDaoFactory;
-import exceptions.FileException;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -20,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
@@ -81,18 +80,22 @@ public class SudokuGameController {
         for (int i = 0; i < 81; i++) {
             int temp = i;
             TextField field = new TextField();
-
             field.setMaxHeight(25);
             field.setMaxWidth(25);
             field.setAlignment(Pos.CENTER);
+            field.setTextFormatter(new TextFormatter<String>((TextFormatter.Change change) -> {
+                if(!change.getText().matches("[1-9]")) {
+                    change.setText("");
+                }
+                return change;
+            }));
             Bindings.bindBidirectional(field.textProperty(),
                     JavaBeanIntegerPropertyBuilder.create()
                             .bean(board.getSudokuField(i))
                             .name("value")
                             .build(), new NumberStringConverter());
-
             field.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-                if ((!newValue.matches("[1-9]")) || newValue.length() > 1) {
+                if (newValue.length() > 1) {
                     Platform.runLater(() -> {
                         field.setText("");
                     });
