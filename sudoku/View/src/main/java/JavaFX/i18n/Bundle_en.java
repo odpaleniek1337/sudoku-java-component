@@ -15,5 +15,6 @@ public class Bundle_en extends ListResourceBundle {
             { "versionNumber", "1.0" },
             { "aboutText", "Sudoku game is a project made for Component programming classes." },
             { "noFile", "There is no such file. " },
+            { "btn1Error", "Error occurred during changing stage! " },
     };
 }

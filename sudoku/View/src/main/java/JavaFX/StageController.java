@@ -2,13 +2,19 @@ package JavaFX;
 
 import compprog.sudoku.SudokuDifficulty;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import compprog.sudoku.SudokuLanguage;
-import exceptions.FileException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,9 +51,8 @@ public class StageController {
     @FXML
     private Label aboutLabel;
     @FXML
-    private Label notFoundLabel;
-    @FXML
-    private TextField filenameTextArea;
+    private ComboBox filenameComboBox;
+
     static String filename;
 
     static SudokuDifficulty diff;
@@ -57,7 +62,7 @@ public class StageController {
     static Locale listLocale;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         switch (language) {
             case POLSKI -> {
                 polskiItem.setSelected(true);
@@ -71,6 +76,27 @@ public class StageController {
         ResourceBundle listBundle = ResourceBundle.getBundle("JavaFX.i18n.Bundle", listLocale);
         aboutLabel.setText(listBundle.getObject("aboutText") + "\n" + listBundle.getObject("authors") + " " + listBundle.getObject("author1") +
                 ", " +listBundle.getObject("author2") + "\n" + listBundle.getObject("version") + " " + listBundle.getObject("versionNumber"));
+
+        ObservableList<String> files = FXCollections.observableArrayList(findFiles(Paths.get("./"), "sudoku"));
+        filenameComboBox.setItems(files);
+    }
+
+    public static List<String> findFiles(Path path, String fileExtension) throws IOException {
+        if (!Files.isDirectory(path)) {
+            throw new IllegalArgumentException("Path must be a directory!");
+        }
+
+        List<String> result;
+
+        try (Stream<Path> walk = Files.walk(path)) {
+            result = walk
+                    .filter(p -> !Files.isDirectory(p))
+                    .map(p -> p.getFileName().toString().toLowerCase())
+                    .filter(f -> f.endsWith(fileExtension))
+                    .collect(Collectors.toList());
+        }
+
+        return result;
     }
 
     public static ResourceBundle setBundle() {
@@ -99,20 +125,11 @@ public class StageController {
 
     @FXML void loadGame(ActionEvent event) throws Exception {
         try {
-            filename = "./" + filenameTextArea.getText() + ".sudoku";
-            File tmpDir = new File(filename);
-            if (!tmpDir.exists()) {
-                notFoundLabel.setVisible(true);
-                throw new FileException();
-            } else {
-                launchLoadedGame(event);
-            }
+            filename = (String)filenameComboBox.getSelectionModel().getSelectedItem();
+            launchLoadedGame(event);
         } catch(IOException exception) {
             Logger logger = LoggerFactory.getLogger(StageController.class);
             logger.error("Cannot load game with given name!! - " + filename);
-        } catch (FileException exception) {
-            Logger logger = LoggerFactory.getLogger(StageController.class);
-            logger.warn(ResourceBundle.getBundle("JavaFX.i18n.Bundle", listLocale).getObject("noFile") + filename);
         }
     }
 
@@ -130,11 +147,6 @@ public class StageController {
         } catch (Exception exception) {
             throw new Exception("Error occurred during launching loaded game!!", exception);
         }
-    }
-
-    @FXML
-    public void closeNotFoundLabel() {
-        notFoundLabel.setVisible(false);
     }
 
     @FXML
