@@ -1,7 +1,7 @@
 package compprog.sudoku;
 
 public class Prototype {
-    public SudokuBoard templateBoard;
+    private SudokuBoard templateBoard;
 
     public Prototype(SudokuBoard board) {
         templateBoard = board;

@@ -1,4 +1,4 @@
-package javafx;
+package gui;
 
 import java.util.ResourceBundle;
 import javafx.application.Application;

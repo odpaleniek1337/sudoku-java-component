@@ -1,4 +1,4 @@
-package javafx.i18n;
+package gui.i18n;
 
 import java.util.ListResourceBundle;
 

@@ -3,9 +3,8 @@ module View {
     requires javafx.fxml;
     requires javafx.controls;
     requires Model;
-    requires slf4j.log4j12;
-    requires slf4j.api;
+    requires org.slf4j;
 
-    opens javafx to javafx.fxml;
-    exports javafx to javafx.graphics, javafx.fxml;
+    opens gui to javafx.fxml;
+    exports gui to javafx.graphics, javafx.fxml;
 }

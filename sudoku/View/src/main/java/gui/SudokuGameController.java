@@ -1,4 +1,4 @@
-package javafx;
+package gui;
 
 import compprog.sudoku.BacktrackingSudokuSolver;
 import compprog.sudoku.Dao;

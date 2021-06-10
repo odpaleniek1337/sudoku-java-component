@@ -1,4 +1,4 @@
-package javafx;
+package gui;
 
 import compprog.sudoku.SudokuDifficulty;
 import compprog.sudoku.SudokuLanguage;
@@ -81,7 +81,7 @@ public class StageController {
             default -> {
             }
         }
-        ResourceBundle listBundle = ResourceBundle.getBundle("javafx.i18n.Bundle", listLocale);
+        ResourceBundle listBundle = ResourceBundle.getBundle("gui.i18n.Bundle", listLocale);
         aboutLabel.setText(listBundle.getObject("aboutText")
                 + "\n"
                 + listBundle.getObject("authors")
@@ -143,7 +143,7 @@ public class StageController {
      * @param event generated action
      */
     @FXML
-    public void handleBtn1(ActionEvent event) throws IOException {
+    public void handleBtn1(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/SudokuGameView.fxml"), setBundle());
             root.setStyle("-fx-background-image: url('SudokuGameViewBG.png')");
@@ -155,7 +155,7 @@ public class StageController {
             Logger logger = LoggerFactory.getLogger(StageController.class);
             logger.warn(
                   (String) ResourceBundle.getBundle(
-                      "JavaFX.i18n.Bundle", listLocale).getObject("btn1Error"));
+                      "javafx.i18n.Bundle", listLocale).getObject("btn1Error"));
         }
     }
 
