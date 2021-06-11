@@ -18,13 +18,11 @@ public class PrototypeTest {
         SudokuBoard newClone2 = testPrototype.createClone();
         assertEquals(newClone1.getCellValue(5), testBoard.getCellValue(5));
         assertEquals(newClone2.getCellValue(5), testBoard.getCellValue(5));
-        testBoard.setCellValue(15, 6);
-        testBoard.setCellValue(16, 6);
-        assertNotEquals(newClone1.getCellValue(15) + newClone1.getCellValue(16), testBoard.getCellValue(15) + testBoard.getCellValue(16));
-        assertNotEquals(newClone2.getCellValue(15) + newClone2.getCellValue(16), testBoard.getCellValue(15) + testBoard.getCellValue(16));
-        newClone1.setCellValue(15,6);
-        newClone1.setCellValue(16,6);
-        assertNotEquals(newClone2.getCellValue(15) + newClone2.getCellValue(16), newClone1.getCellValue(15) + newClone1.getCellValue(16));
-        assertEquals(newClone1.getCellValue(15) + newClone1.getCellValue(16), testBoard.getCellValue(15) + testBoard.getCellValue(16));
+        testBoard.setCellValue(15,10);
+        assertNotEquals(newClone1.getCellValue(15), testBoard.getCellValue(15));
+        assertNotEquals(newClone2.getCellValue(15), testBoard.getCellValue(15));
+        newClone1.setCellValue(15,10);
+        assertNotEquals(newClone2.getCellValue(15), newClone1.getCellValue(15));
+        assertEquals(newClone1.getCellValue(15) , testBoard.getCellValue(15));
     }
 }
