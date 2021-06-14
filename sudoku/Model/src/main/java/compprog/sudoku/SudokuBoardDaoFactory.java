@@ -5,4 +5,8 @@ public class SudokuBoardDaoFactory {
         FileSudokuBoardDao dao = new FileSudokuBoardDao(filename);
         return dao;
     }
+
+    public static Dao<SudokuBoard> getJdbcSudokuBoardDao(String sudokuBoardName) {
+        return new JdbcSudokuBoardDao(sudokuBoardName);
+    }
 }

@@ -37,7 +37,7 @@
       </GridPane>
       <Button layoutX="400.0" layoutY="25.0" mnemonicParsing="false" onAction="#checkSudoku" text="%checkButton" />
       <TextArea fx:id="textArea" editable="false" layoutX="400.0" layoutY="105.0" prefHeight="50.0" prefWidth="200.0" promptText="%textAreaPrompt" wrapText="true" />
-      <Button layoutX="400.0" layoutY="65.0" mnemonicParsing="false" onAction="#saveSudoku" text="%saveButton" />
+      <Button layoutX="400.0" layoutY="65.0" mnemonicParsing="false" onAction="#saveDB" text="%saveButton" />
       <TextField fx:id="filenameField" layoutX="500.0" layoutY="65.0" prefHeight="25.0" prefWidth="85.0" promptText="%inputFilenamePromptToSave" />
       <Label fx:id="saveLabel" alignment="CENTER" layoutX="400.0" layoutY="288.0" opacity="0.7" prefHeight="102.0" prefWidth="192.0" style="-fx-background-color: white;" visible="false" />
    </children>

@@ -1,5 +1,6 @@
 package gui;
 
+import compprog.sudoku.JdbcSudokuBoardDao;
 import compprog.sudoku.SudokuDifficulty;
 import compprog.sudoku.SudokuLanguage;
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import exceptions.DatabaseException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,7 +71,7 @@ public class StageController {
      * Initialize StageController.
      */
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, DatabaseException {
         switch (language) {
             case POLSKI -> {
                 polskiItem.setSelected(true);
@@ -93,8 +96,10 @@ public class StageController {
                 + " "
                 + listBundle.getObject("versionNumber"));
 
-        ObservableList<String> files = FXCollections.observableArrayList(
-                findFiles(Paths.get("./"), "sudoku"));
+//        ObservableList<String> files = FXCollections.observableArrayList(
+//                findFiles(Paths.get("./"), "sudoku"));
+        JdbcSudokuBoardDao dao = new JdbcSudokuBoardDao();
+        ObservableList<String> files = FXCollections.observableArrayList(dao.getAllGames());
         filenameComboBox.setItems(files);
     }
 
