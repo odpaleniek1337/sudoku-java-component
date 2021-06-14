@@ -132,7 +132,8 @@ public class SudokuGameController {
 
             if (board.getCellValue(i) == 0) {
                 fields.get(i).setText("");
-            } else {
+            }
+            if (!board.getEditable(i)) {
                 fields.get(i).setDisable(true);
                 fields.get(i).setStyle("-fx-opacity: 1;" + "-fx-background-color: rgb(189,77,0)");
             }

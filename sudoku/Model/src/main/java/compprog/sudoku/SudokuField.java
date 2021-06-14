@@ -10,6 +10,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class SudokuField implements Observable, Serializable, Comparable<SudokuField>, Cloneable {
     private int value;
+    private boolean isEditable;
     public List<Observer> observers = new ArrayList<>();
     
     public SudokuField() {
@@ -31,6 +32,14 @@ public class SudokuField implements Observable, Serializable, Comparable<SudokuF
     
     public void setFieldValue(int value) {
         this.value = value;
+    }
+
+    public boolean getFieldEditable() {
+        return isEditable;
+    }
+
+    public void setFieldEditable(boolean value) {
+        this.isEditable = value;
     }
 
     /**

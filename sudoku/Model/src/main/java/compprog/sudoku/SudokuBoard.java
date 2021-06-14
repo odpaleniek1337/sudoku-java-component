@@ -29,6 +29,12 @@ public class SudokuBoard implements Serializable, Cloneable {
             board.set(x, new SudokuField()); 
         }
     }
+
+    private void fieldsEditableFalse() {
+        for (int x = 0; x < 81; x++) {
+            board.get(x).setFieldEditable(false);
+        }
+    }
     
     /**
       *Generates indexes of start hint cells.
@@ -121,6 +127,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         //for (Integer i : cells)
         for (Integer i = 0; i < cells.size(); i++) {
             setCellValue(cells.get(i), 0);
+            setEditable(cells.get(i),true);
         }
     }
     
@@ -130,6 +137,7 @@ public class SudokuBoard implements Serializable, Cloneable {
     public void makeBoard() {
         createFields();
         cellsToZero();
+        fieldsEditableFalse();
         Integer[] intArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         List<Integer> firstRow = Arrays.asList(intArray);
         Collections.shuffle(firstRow);
@@ -205,6 +213,14 @@ public class SudokuBoard implements Serializable, Cloneable {
                 getColumn(column), getBox(rowFactor * 3 + colFactor));
         //board.get(cell).notifyObservers();
         board.get(cell).setFieldValue(value);
+    }
+
+    public boolean getEditable(int cell) {
+        return board.get(cell).getFieldEditable();
+    }
+
+    public void setEditable(int cell, boolean value) {
+        board.get(cell).setFieldEditable(value);
     }
 
     /**
