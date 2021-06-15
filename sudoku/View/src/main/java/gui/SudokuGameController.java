@@ -125,7 +125,7 @@ public class SudokuGameController {
     }
 
     private void displaySudoku() {
-        board.display();
+        //board.display();
         boardGrid.setStyle("-fx-background-image: url('background_board.PNG')");
         for (int i = 0; i < 81; i++) {
             int row = i / 9;
@@ -144,7 +144,7 @@ public class SudokuGameController {
 
     @FXML
     private void checkSudoku() {
-        board.display();
+        //board.display();
         if (board.checkBoard()) {
             textArea.setText(bundle.getString("correctBoardText"));
         } else {

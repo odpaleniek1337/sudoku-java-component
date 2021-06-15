@@ -186,7 +186,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
     @Override
     public SudokuBoard read() {
         SudokuBoard sudokuBoard = new SudokuBoard(new BacktrackingSudokuSolver());
-        sudokuBoard.solveGame();
+        sudokuBoard.makeNewBoard();
         int idBoard = 0;
 
         try {

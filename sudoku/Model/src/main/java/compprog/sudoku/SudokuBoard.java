@@ -150,12 +150,12 @@ public class SudokuBoard implements Serializable, Cloneable {
     /**
      *Creates new board from numbers typed in GUI by User.
      */
-    public void makeNewBoard(List<Integer> intList) {
+    public void makeNewBoard() {
         createFields();
         cellsToZero();
 
         for (int i = 0; i < 81; i++) {
-            setCellValue(i, intList.get(i));
+            setCellValue(i, 0);
         }
     }
     
@@ -282,6 +282,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         for (int i = 0; i < 9; i++) {
             if (!(getColumn(i).verify() && getRow(i).verify()
                     && getBox(i).verify())) {
+                //display();
                 return false;
             }
         }
@@ -294,7 +295,7 @@ public class SudokuBoard implements Serializable, Cloneable {
     public void solveGame() {
         makeBoard();
         sudokuSolver.solve(this);
-        display();
+        //display();
     }
 
     @Override
