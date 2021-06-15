@@ -1,6 +1,7 @@
 package compprog.sudoku;
 
-import java.io.IOException;
+import exceptions.DatabaseException;
+import exceptions.NoBoardTableException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,9 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import exceptions.DatabaseException;
-import exceptions.NoBoardTableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +24,10 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
     private Statement statement;
     private String sudokuBoardName;
 
+    /**
+     * Constructor of JdbcSudokuBoardDao class.
+     * Manage connection with database.
+     */
     public JdbcSudokuBoardDao() {
         this.dbUrl = "jdbc:h2:file:./sudoku/Model/src/main/resources/sudokuDatabase";
 
@@ -43,6 +45,11 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
             logger.error("Cannot connect with the database url", e);
         }
     }
+
+    /**
+     * Constructor of JdbcSudokuBoardDao class.
+     * Manage connection with database and sets sudokuBoard filename.
+     */
     public JdbcSudokuBoardDao(String name) {
 
         this.sudokuBoardName = name;
@@ -63,6 +70,10 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
         }
     }
 
+    /**
+     * Creating list with all games saved in database.
+     * @return List.
+     */
     public List getAllGames() throws DatabaseException {
         try {
             String sqlGetGames =
@@ -73,7 +84,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
             ArrayList<String> gamesList = new ArrayList<>(columnCount);
             while (resultSet.next()) {
                 int i = 1;
-                while(i <= columnCount) {
+                while (i <= columnCount) {
                     gamesList.add(resultSet.getString(i++));
                 }
             }
@@ -98,9 +109,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
                 throw new NoBoardTableException();
             }
             return id;
-
-        }
-        catch (SQLException sqlException) {
+        } catch (SQLException sqlException) {
             throw new DatabaseException();
         }
     }
@@ -198,10 +207,10 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
 
                 if (result.last()) {
                     sudokuBoard.setCellValue(x, result.getInt(1));
-                    sudokuBoard.setEditable(x,result.getBoolean(2));
+                    sudokuBoard.setEditable(x, result.getBoolean(2));
                 }
             }
-        } catch (SQLException sqlException){
+        } catch (SQLException sqlException) {
             Logger logger = LoggerFactory.getLogger(JdbcSudokuBoardDao.class);
             logger.error("Error loading value from field", sqlException);
         }
@@ -214,31 +223,28 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
         createTablesIfNotExist();
         try {
             createGame();
-            saveSudokuFields(obj,getBoardID());
-        } catch (SQLException | DatabaseException sqlException){
+            saveSudokuFields(obj, getBoardID());
+        } catch (SQLException | DatabaseException sqlException) {
             Logger logger = LoggerFactory.getLogger(JdbcSudokuBoardDao.class);
             logger.error("Error in writing newGame to DB", sqlException);
             throw new RuntimeException();
         }
-//        try catch + updating fields with name if exists
     }
 
     @Override
     public void close() {
-        if (connection != null){
+        if (connection != null) {
             try {
                 connection.close();
-            }
-            catch (SQLException sqlException){
+            } catch (SQLException sqlException) {
                 Logger logger = LoggerFactory.getLogger(JdbcSudokuBoardDao.class);
                 logger.error("Cannot close connection!", sqlException);
             }
         }
-        if (statement != null){
+        if (statement != null) {
             try {
                 statement.close();
-            }
-            catch (SQLException sqlException){
+            } catch (SQLException sqlException) {
                 Logger logger = LoggerFactory.getLogger(JdbcSudokuBoardDao.class);
                 logger.error("Cannot close statement!", sqlException);
             }

@@ -127,7 +127,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         //for (Integer i : cells)
         for (Integer i = 0; i < cells.size(); i++) {
             setCellValue(cells.get(i), 0);
-            setEditable(cells.get(i),true);
+            setEditable(cells.get(i), true);
         }
     }
     
@@ -199,7 +199,6 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     /**
      * Sets int value in certain cell and adding observers to the cell.
-     *
      * [Observer pattern temporary disabled.]
      *
      * @param cell number indicating cell number in our board
@@ -207,14 +206,14 @@ public class SudokuBoard implements Serializable, Cloneable {
      */
     public void setCellValue(int cell, int value) {
         board.get(cell).setFieldValue(value);
-//        int row = cell / 9;
-//        int column = cell % 9;
-//        int rowFactor = row / 3;
-//        int colFactor = column / 3;
-//        board.get(cell).addObservers(getRow(row),
-//                getColumn(column), getBox(rowFactor * 3 + colFactor));
-//        board.get(cell).notifyObservers();
-//        board.get(cell).setFieldValue(value);
+        //int row = cell / 9;
+        //int column = cell % 9;
+        //int rowFactor = row / 3;
+        //int colFactor = column / 3;
+        //board.get(cell).addObservers(getRow(row),
+        //        getColumn(column), getBox(rowFactor * 3 + colFactor));
+        //board.get(cell).notifyObservers();
+        //board.get(cell).setFieldValue(value);
     }
 
     public boolean getEditable(int cell) {

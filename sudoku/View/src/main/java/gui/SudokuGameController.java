@@ -1,7 +1,10 @@
 package gui;
 
-import compprog.sudoku.*;
-
+import compprog.sudoku.BacktrackingSudokuSolver;
+import compprog.sudoku.Dao;
+import compprog.sudoku.JdbcSudokuBoardDao;
+import compprog.sudoku.SudokuBoard;
+import compprog.sudoku.SudokuBoardDaoFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -154,24 +157,24 @@ public class SudokuGameController {
         saveLabel.setVisible(false);
     }
 
-//    @FXML
-//    private void saveSudoku() {
-//        try {
-//            if (!filenameField.getText().equals("")) {
-//                String filename = "./" + filenameField.getText() + ".sudoku";
-//                factoryDao = factory.getFileDao(filename);
-//                factoryDao.write(board);
-//                saveLabel.setText(bundle.getString("saveComplete"));
-//            } else {
-//                saveLabel.setText(bundle.getString("saveNoFilename"));
-//            }
-//            saveLabel.setVisible(true);
-//            visiblePause.play();
-//        } catch (IOException exception) {
-//            Logger logger = LoggerFactory.getLogger(StageController.class);
-//            logger.error("Error occurred during saving game!!");
-//        }
-//    }
+    @FXML
+    private void saveSudoku() {
+        try {
+            if (!filenameField.getText().equals("")) {
+                String filename = "./" + filenameField.getText() + ".sudoku";
+                factoryDao = factory.getFileDao(filename);
+                factoryDao.write(board);
+                saveLabel.setText(bundle.getString("saveComplete"));
+            } else {
+                saveLabel.setText(bundle.getString("saveNoFilename"));
+            }
+            saveLabel.setVisible(true);
+            visiblePause.play();
+        } catch (IOException exception) {
+            Logger logger = LoggerFactory.getLogger(StageController.class);
+            logger.error("Error occurred during saving game!!");
+        }
+    }
 
     @FXML
     private void saveDB() throws Exception {
@@ -188,17 +191,20 @@ public class SudokuGameController {
             visiblePause.play();
     }
 
-//    private SudokuBoard loadSudoku() throws Exception {
-//        try {
-//            String filename = StageController.filename;
-//            factoryDao = factory.getFileDao(filename);
-//            SudokuBoard boardRead = factoryDao.read();
-//            return boardRead;
-//        } catch (Exception exception) {
-//            throw new Exception("Error occurred during loading game!!", exception);
-//        }
-//    }
+    private SudokuBoard loadSudoku() throws Exception {
+        try {
+            String filename = StageController.filename;
+            factoryDao = factory.getFileDao(filename);
+            SudokuBoard boardRead = factoryDao.read();
+            return boardRead;
+        } catch (Exception exception) {
+            throw new Exception("Error occurred during loading game!!", exception);
+        }
+    }
 
+    /**
+     * Loads sudoku game from database.
+     */
     public SudokuBoard loadDB() throws Exception {
         try {
             String filename = StageController.filename;
